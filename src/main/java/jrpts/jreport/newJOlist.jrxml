@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="612" pageHeight="936" whenNoDataType="AllSectionsNoDetail" columnWidth="286" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d44144c-eefc-4be3-824c-d148b051f3da">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT 
+  humane(jobworker.lastname, jobworker.firstname, jobworker.suffix, jobworker.midname) AS pangalan, 
+  jobarrange.remarks
+FROM 
+  psnl.jobworker INNER JOIN cbo.jobarrange
+  ON jobworker.uniqkey = jobarrange.empkey
+WHERE
+  (jobyear = DATE_PART('YEAR', NOW())) AND
+  (TRIM(LOWER(jobarrange.remarks)) LIKE 'new%')
+ORDER BY
+  jobworker.lastname, 
+  jobworker.firstname, 
+  jobworker.midname;]]>
+	</queryString>
+	<field name="pangalan" class="java.lang.String"/>
+	<field name="remarks" class="java.lang.String"/>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="194" y="0" width="185" height="40" uuid="a2eb1c0e-dbd0-459d-9970-d38518600ef6"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Republic of the Philippines
+City of Surigao
+Province of Surigao del Norte]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23">
+			<staticText>
+				<reportElement x="0" y="0" width="286" height="23" uuid="85a11ba0-4061-4457-a823-aaef5eaa4a09"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[New Job Order - Listing]]></text>
+			</staticText>
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
+				<reportElement x="391" y="0" width="181" height="23" uuid="8aae4ca2-955e-42d5-8983-8560e4787c93"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="0" width="256" height="20" uuid="d4156d8c-c1d7-4128-9d5f-8d3ae3582efd"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[J.O. Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="30" height="20" uuid="41d4943e-d891-4262-8425-21a946500e56"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[#]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="256" height="20" uuid="fd94c913-c992-4f62-944b-9ad333a720d0"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pangalan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="30" height="20" uuid="1e30f729-d885-4cf2-861f-64574db11a9c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} + "."]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="14">
+			<textField>
+				<reportElement x="452" y="0" width="80" height="14" uuid="5d106c97-2f3e-454e-bd10-97c3582efd8e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="532" y="0" width="40" height="14" uuid="6b35d72b-6f4e-4d7e-a25e-a925c3116e79"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="452" height="14" forecolor="#0000FF" uuid="3732cb1e-14c6-4b30-8cf2-a0a7d335441b"/>
+				<box leftPadding="30">
+					<pen lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineColor="#000000"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[New Job Order List]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

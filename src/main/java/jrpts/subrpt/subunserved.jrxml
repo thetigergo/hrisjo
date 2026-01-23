@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subunserved" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9fdd0d91-c717-4129-9b88-d78e876f71f8">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="206"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="785"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborders"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="personelrefno" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[WITH detalye AS (
+	SELECT
+		jobnum, jobyear, empkey,
+		COUNT(*) AS kabook,
+		(SELECT COUNT(*) FROM cbo.jobcontrol WHERE (jobref = jobarrange.jobnum) AND (empkey = jobarrange.empkey) AND (jobyear = jobarrange.jobyear)) AS nahimo
+	FROM
+		cbo.jobarrange
+	WHERE
+		(psnl_ref = $P{personelrefno})
+	GROUP BY
+		jobnum, jobyear, empkey
+), summary AS (
+	SELECT
+		jobnum, 
+		SUM(kabook) * CASE WHEN MAX(nahimo) = 0 THEN 1 ELSE MAX(nahimo) END AS tanan,
+		SUM(nahimo) AS nahuman, 
+		(CASE WHEN MAX(nahimo) = 0 THEN 0 ELSE SUM(nahimo) / (SUM(kabook) * MAX(nahimo)) END)::NUMERIC(9, 2) AS porcento
+	FROM detalye GROUP BY jobnum
+) SELECT jobnum, tanan, nahuman, porcento FROM summary]]>
+	</queryString>
+	<field name="jobnum" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="jobnum"/>
+		<property name="com.jaspersoft.studio.field.label" value="jobnum"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobarrange"/>
+	</field>
+	<field name="tanan" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="tanan"/>
+		<property name="com.jaspersoft.studio.field.label" value="tanan"/>
+	</field>
+	<field name="nahuman" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="nahuman"/>
+		<property name="com.jaspersoft.studio.field.label" value="nahuman"/>
+	</field>
+	<field name="porcento" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="porcento"/>
+		<property name="com.jaspersoft.studio.field.label" value="porcento"/>
+	</field>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{porcento} == 1D]]></printWhenExpression>
+			<textField>
+				<reportElement x="0" y="0" width="80" height="20" uuid="c3beab6d-e192-4c9c-b6d8-53be24e07d74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{jobnum}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="80" y="0" width="70" height="20" uuid="e22ba76c-582d-463f-bfb3-4434ac2b26b5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tanan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="150" y="0" width="70" height="20" uuid="972c5cb1-e118-4045-9c26-b65a866ad97b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nahuman}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00%">
+				<reportElement x="220" y="0" width="50" height="20" uuid="cbe63b9a-2003-4570-9259-2b34397e5c55"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{porcento}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="20">
+			<printWhenExpression><![CDATA[$F{porcento} != 1D]]></printWhenExpression>
+			<textField>
+				<reportElement x="0" y="0" width="80" height="20" forecolor="#0000FF" uuid="6ea2e660-22eb-442f-9a1a-deb17354115a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{jobnum}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="80" y="0" width="70" height="20" forecolor="#0000FF" uuid="4a668802-4a6b-4a04-9911-5f59470ff4f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tanan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="150" y="0" width="70" height="20" forecolor="#0000FF" uuid="92579003-43bc-4b52-80a9-b0de69ce215b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nahuman}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00%">
+				<reportElement x="220" y="0" width="50" height="20" forecolor="#0000FF" uuid="3ac564b7-75a6-4059-8d23-00910b251227"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{porcento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="612" pageHeight="936" whenNoDataType="AllSectionsNoDetail" columnWidth="286" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="0d44144c-eefc-4be3-824c-d148b051f3da">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborders"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="DatedOn" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2024-11-30")]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT
+  humane(jobworker.lastname, jobworker.firstname, jobworker.suffix, jobworker.midname) AS pangalan, 
+  jobarrange.jobyear, 
+  offices.office,
+  jobworker.bank_acct IS NULL AS nonatm
+FROM 
+  psnl.jobworker INNER JOIN cbo.jobarrange
+  ON jobworker.uniqkey = jobarrange.empkey
+  INNER JOIN psnl.offices
+  ON jobarrange.offcloc = offices.offcid
+WHERE 
+  --(DATE_PART('YEAR', jobarrange.frdate) = 2023) AND
+  --(('2023-10-01'::DATE BETWEEN jobarrange.frdate AND jobarrange.todate) OR
+  ($P{DatedOn} BETWEEN jobarrange.frdate AND jobarrange.todate) AND
+  (offcid NOT IN('1021', '1021-A'))
+ORDER BY
+  offices.office,
+  jobworker.lastname, 
+  jobworker.firstname, 
+  jobworker.midname;]]>
+	</queryString>
+	<field name="pangalan" class="java.lang.String"/>
+	<field name="jobyear" class="java.lang.Integer"/>
+	<field name="office" class="java.lang.String"/>
+	<field name="nonatm" class="java.lang.Boolean"/>
+	<variable name="AtmCounts" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{nonatm} ? 0 : 1]]></variableExpression>
+	</variable>
+	<variable name="JobCount" class="java.lang.Short" resetType="Group" resetGroup="Opesina" calculation="Count">
+		<variableExpression><![CDATA[$F{jobyear}]]></variableExpression>
+	</variable>
+	<group name="Opesina">
+		<groupExpression><![CDATA[$F{office}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="286" height="20" forecolor="#0000FF" uuid="1a83c9a0-fb7a-483e-bce5-5c05033c499e"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{office}.toUpperCase()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="286" height="20" uuid="f3066285-0dfc-4b13-8da8-603b697a4a3a"/>
+					<box rightPadding="10">
+						<topPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{office} + " - " + $V{JobCount} + " Job Order(s)"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="194" y="0" width="185" height="14" uuid="a2eb1c0e-dbd0-459d-9970-d38518600ef6"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[LGU - SURIGAO CITY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="14" width="248" height="14" uuid="737f3012-2ba2-4efc-9971-a21bf5404020"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[LIST OF JOB ORDER WITH OR WITHOUT ATM]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="45">
+			<textField pattern="MMMM yyyy">
+				<reportElement x="156" y="0" width="260" height="23" uuid="b3626559-bcac-4a1e-a93a-c3d60c884359"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{DatedOn}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="0" width="256" height="20" uuid="d4156d8c-c1d7-4128-9d5f-8d3ae3582efd"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[J.O. Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="30" height="20" uuid="41d4943e-d891-4262-8425-21a946500e56"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[#]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{nonatm}]]></printWhenExpression>
+			<textField>
+				<reportElement x="30" y="0" width="223" height="20" uuid="fd94c913-c992-4f62-944b-9ad333a720d0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pangalan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="30" height="20" uuid="1e30f729-d885-4cf2-861f-64574db11a9c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} + "."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="253" y="0" width="33" height="20" uuid="74698fdb-3d4f-4783-a79a-0d6a890210a5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ATM]]></text>
+			</staticText>
+		</band>
+		<band height="20">
+			<printWhenExpression><![CDATA[$F{nonatm}]]></printWhenExpression>
+			<textField>
+				<reportElement x="30" y="0" width="223" height="20" forecolor="#FF0000" uuid="b32cd70e-ffc4-415c-9992-8db863818b84"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pangalan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="30" height="20" forecolor="#FF0000" uuid="209b4d63-172e-4462-b077-61ee007d575d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} + "."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="253" y="0" width="33" height="20" forecolor="#FF0000" uuid="96c8ec65-ebff-430c-9d92-2d5c78d7dd44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[---]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="14">
+			<textField>
+				<reportElement x="452" y="0" width="80" height="14" uuid="5d106c97-2f3e-454e-bd10-97c3582efd8e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="532" y="0" width="40" height="14" uuid="6b35d72b-6f4e-4d7e-a25e-a925c3116e79"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="331" height="14" forecolor="#FF0000" uuid="3732cb1e-14c6-4b30-8cf2-a0a7d335441b"/>
+				<box leftPadding="30">
+					<pen lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineColor="#000000"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Job Order List]]></text>
+			</staticText>
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
+				<reportElement x="331" y="0" width="121" height="14" uuid="8aae4ca2-955e-42d5-8983-8560e4787c93"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="168">
+			<staticText>
+				<reportElement x="33" y="20" width="61" height="20" uuid="6a697e2e-cf90-4d80-a42b-c2c78c772d43"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ATM - Counts:]]></text>
+			</staticText>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="94" y="20" width="100" height="20" uuid="eb4be4fc-4061-4ab8-ab3d-8936b8145979"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{AtmCounts}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="194" y="20" width="92" height="20" uuid="edba102a-752f-48e9-a8f5-292385a74b1c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Without ATM:]]></text>
+			</staticText>
+			<textField evaluationTime="Report" pattern="#,##0;(#,##0)">
+				<reportElement x="291" y="20" width="63" height="20" uuid="a362c01a-f926-4679-a8f8-b977edd31bbc"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} - $V{AtmCounts}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="6" width="572" height="1" uuid="75af5c5d-992e-4411-8a90-b67199895567"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="30" y="92" width="61" height="16" uuid="33f08595-4dcc-4493-bbd3-8e3b0fa04cc6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Prepared by:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="124" width="120" height="14" uuid="507d395b-cad8-4664-b0c1-fddeecaf4604"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Felix E. Rendon]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="108" width="61" height="16" uuid="a32b9227-a980-4860-9a1b-d5b620bb990e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Noted by:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="138" width="153" height="14" uuid="7fa6e78c-4c57-4f9d-9bd6-e07ee75fa8fe"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JOCELYN E. MONTEROS, CPA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="152" width="153" height="16" uuid="548532a5-ef1f-42f1-b61f-98beb88f9d61"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[City Accountant]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

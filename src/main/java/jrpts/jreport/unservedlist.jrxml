@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="936" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98789422-7180-4852-b2ef-7e823da3c97a">
+	<property name="ireport.zoom" value="2.1435888100000025"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborders"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="594"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="396"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="Opesina" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["1021"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DatedOn" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2023-12-31", new java.text.ParsePosition(0));]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+   offices.office,
+   projects.projtitle,
+   humane(jobworker.lastname, jobworker.firstname, jobworker.suffix, jobworker.midname),
+   jobarrange.jobnum,
+   jobarrange.psnl_ref,
+   jobarrange.frdate AS gekan,
+   jobarrange.todate AS ngadto,
+   jobarrange.rate,
+   jobarrange.days AS adlaw,
+   jobcontrol.refno,
+   jobcontrol.frdate,
+   jobcontrol.todate,
+   jobcontrol.days,
+   jobcontrol.utime,
+   (jobcontrol.rate * jobcontrol.days) AS amount
+FROM 
+   cbo.jobarrange LEFT JOIN cbo.jobcontrol
+   ON jobarrange.jobnum = jobcontrol.jobref
+   AND jobarrange.empkey = jobcontrol.empkey
+   AND jobarrange.offcloc = jobcontrol.offcloc
+   AND jobarrange.project = jobcontrol.project
+   JOIN psnl.offices
+   ON jobarrange.offcloc = offices.offcid
+   JOIN psnl.jobworker
+   ON jobarrange.empkey = jobworker.uniqkey
+   JOIN cbo.projects
+   ON jobarrange.project = projects.projid
+WHERE
+   (jobarrange.offcloc = $P{Opesina}) AND
+   (jobarrange.todate  = $P{DatedOn})
+ORDER BY
+   offices.office,
+   jobarrange.jobnum,
+   jobworker.lastname, jobworker.firstname, jobworker.midname,
+   jobcontrol.frdate,
+   jobcontrol.refno]]>
+	</queryString>
+	<field name="office" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="office"/>
+		<property name="com.jaspersoft.studio.field.label" value="office"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="offices"/>
+	</field>
+	<field name="projtitle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="projtitle"/>
+		<property name="com.jaspersoft.studio.field.label" value="projtitle"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="projects"/>
+	</field>
+	<field name="humane" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="humane"/>
+		<property name="com.jaspersoft.studio.field.label" value="humane"/>
+	</field>
+	<field name="jobnum" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="jobnum"/>
+		<property name="com.jaspersoft.studio.field.label" value="jobnum"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobarrange"/>
+	</field>
+	<field name="psnl_ref" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="psnl_ref"/>
+		<property name="com.jaspersoft.studio.field.label" value="psnl_ref"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobarrange"/>
+	</field>
+	<field name="gekan" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="gekan"/>
+		<property name="com.jaspersoft.studio.field.label" value="gekan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobarrange"/>
+	</field>
+	<field name="ngadto" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="ngadto"/>
+		<property name="com.jaspersoft.studio.field.label" value="ngadto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobarrange"/>
+	</field>
+	<field name="rate" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="rate"/>
+		<property name="com.jaspersoft.studio.field.label" value="rate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobarrange"/>
+	</field>
+	<field name="adlaw" class="java.lang.Short">
+		<property name="com.jaspersoft.studio.field.name" value="adlaw"/>
+		<property name="com.jaspersoft.studio.field.label" value="adlaw"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobarrange"/>
+	</field>
+	<field name="refno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="refno"/>
+		<property name="com.jaspersoft.studio.field.label" value="refno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobcontrol"/>
+	</field>
+	<field name="frdate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="frdate"/>
+		<property name="com.jaspersoft.studio.field.label" value="frdate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobcontrol"/>
+	</field>
+	<field name="todate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="todate"/>
+		<property name="com.jaspersoft.studio.field.label" value="todate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobcontrol"/>
+	</field>
+	<field name="days" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="days"/>
+		<property name="com.jaspersoft.studio.field.label" value="days"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobcontrol"/>
+	</field>
+	<field name="utime" class="java.lang.Short">
+		<property name="com.jaspersoft.studio.field.name" value="utime"/>
+		<property name="com.jaspersoft.studio.field.label" value="utime"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="jobcontrol"/>
+	</field>
+	<field name="amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="amount"/>
+	</field>
+	<variable name="BalDays" class="java.lang.Float" resetType="Group" resetGroup="Human" calculation="Sum">
+		<variableExpression><![CDATA[$F{days}]]></variableExpression>
+	</variable>
+	<group name="Office">
+		<groupExpression><![CDATA[$F{office}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="336" height="20" forecolor="#FF0000" uuid="202333a0-6cbc-496a-80e7-f1863c74462e"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{office}.toUpperCase()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Projects">
+		<groupExpression><![CDATA[$F{projtitle}]]></groupExpression>
+	</group>
+	<group name="JobNumber">
+		<groupExpression><![CDATA[$F{jobnum}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="572" height="20" uuid="5cabd93f-7048-4755-aedc-4d3762f193f5"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Personnel Ref. # " + $F{psnl_ref} + "                       J.O. # "  + $F{jobnum}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Human">
+		<groupExpression><![CDATA[$F{humane}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="154" height="20" uuid="299668b1-4f04-4dcb-becd-2bf897d755a5"/>
+					<box>
+						<bottomPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{humane}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd-MMM-yyyy">
+					<reportElement stretchType="RelativeToBandHeight" x="320" y="0" width="103" height="20" uuid="6339dd97-2049-44e3-a98a-28f0a72dab91"/>
+					<box>
+						<bottomPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("MM/dd").format( $F{gekan} ) +
+" - " +
+new java.text.SimpleDateFormat("MM/dd/yyyy").format( $F{ngadto} )]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement stretchType="RelativeToBandHeight" x="492" y="0" width="80" height="20" uuid="e6271b47-ae3b-40cd-8ad1-84820e18ea58"/>
+					<box>
+						<bottomPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[( $F{rate} != null ?
+   new java.text.DecimalFormat("#,##0.00").format( $F{rate} ) + "/ day"
+:
+   null
+)]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;(#,##0)">
+					<reportElement stretchType="RelativeToBandHeight" x="423" y="0" width="69" height="20" uuid="81000029-ba1c-482e-bfb7-c82c953af2b8"/>
+					<box>
+						<bottomPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{adlaw} + " days"]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement x="154" y="0" width="166" height="20" uuid="913d6f06-c70a-4b15-8a27-81da1c330b96"/>
+					<box>
+						<bottomPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{projtitle}.toUpperCase()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20"/>
+		</groupFooter>
+	</group>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="183" height="26" uuid="6419b9fa-9169-48d8-a1c3-7c2031c15871"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="0" width="140" height="13" uuid="54f7fcf2-642f-4e47-bc30-93d5cd2eda07"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="13" width="70" height="13" uuid="211e4f32-9fd9-4124-988b-76749140b9b9"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FROM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="13" width="70" height="13" uuid="f9c06cd3-2f17-4897-861c-fe5097d8edc7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="0" width="50" height="26" uuid="aa887258-483a-4334-af46-e23d8fe76e24"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DAYS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="423" y="0" width="50" height="26" uuid="454ab87e-0865-4e3b-851c-0d5ca040d562"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[UTIME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="0" width="99" height="26" uuid="ec3a01f1-f141-421c-9d5e-e3f664ef556a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[AMOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="0" width="50" height="26" uuid="4ea0d737-a772-4ba9-ab60-ed1dfa13ec39"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[REF #]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="yyyy-MMM-d" isBlankWhenNull="true">
+				<reportElement x="213" y="0" width="80" height="20" uuid="1c6a633e-fe41-405d-980b-2beaf495396d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{frdate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MMM-d" isBlankWhenNull="true">
+				<reportElement x="293" y="0" width="80" height="20" uuid="58373f50-6c34-45f2-8129-c9823537e8a3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{todate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(-#,##0.00)" isBlankWhenNull="true">
+				<reportElement x="373" y="0" width="50" height="20" uuid="8968d6de-de07-4b3c-985d-e235c1bfcc0a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{days}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;(#,##0)" isBlankWhenNull="true">
+				<reportElement x="423" y="0" width="50" height="20" uuid="20d4c919-3cf3-486d-bb42-bbccf22b7ee6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{utime}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
+				<reportElement x="473" y="0" width="99" height="20" uuid="4000201d-4594-4ab3-bb5e-9c1e07eea579"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement x="163" y="0" width="50" height="20" uuid="fa5a0468-2f29-46a4-b7b8-83ef281d3d2d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{refno}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;(###0.00)" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="93" height="20" uuid="33bcbb7c-0c44-42cb-886e-d25a4a7534f2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[Float.valueOf ( $F{adlaw}.floatValue() - $V{BalDays}.floatValue() )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="93" y="0" width="61" height="20" uuid="b46be072-56f1-4d1b-9cb5-f843ad1dfc03">
+					<printWhenExpression><![CDATA[Boolean.valueOf ( $V{Human_COUNT}.intValue() == 01 & $F{refno} != null )]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ day bal.]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

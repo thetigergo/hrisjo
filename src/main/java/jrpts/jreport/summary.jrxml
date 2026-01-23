@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="540" leftMargin="36" rightMargin="36" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="e2c61b6b-a056-4ba4-bac5-ba4a5552f80c">
+	<property name="ireport.zoom" value="2.3579476910000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DateFr" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DateTo" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT office, projtitle, COUNT(*), jobyear FROM (
+   SELECT DISTINCT
+      offices.office, 
+      projects.projtitle, 
+      jobarrange.empkey,
+      jobarrange.jobyear
+   FROM
+      psnl.offices INNER JOIN cbo.jobarrange
+      ON offices.offcid = jobarrange.offcloc
+      INNER JOIN cbo.projects
+      ON projects.projid = jobarrange.project
+   WHERE
+      ((jobarrange.frdate BETWEEN $P{DateFr} AND $P{DateTo}) OR
+       (jobarrange.todate BETWEEN $P{DateFr} AND $P{DateTo}))
+) GROUP BY
+   office,
+   projtitle,
+   jobyear
+ORDER BY
+   office,
+   projtitle]]>
+	</queryString>
+	<field name="office" class="java.lang.String"/>
+	<field name="projtitle" class="java.lang.String"/>
+	<field name="count" class="java.lang.Short"/>
+	<field name="jobyear" class="java.lang.Integer"/>
+	<variable name="Tanan" class="java.lang.Short" calculation="Sum">
+		<variableExpression><![CDATA[$F{count}]]></variableExpression>
+	</variable>
+	<group name="Opesina" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{office}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="540" height="20" uuid="546dcb7f-b960-4bec-b609-83fb30c507a8"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{office}.toUpperCase()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="10"/>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="186" y="0" width="169" height="20" uuid="4da0f02a-cdb5-49a8-b257-629f8e5302f4"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JOB ORDER SUMMARY]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="186" y="0" width="169" height="30" uuid="6d19cc26-7f01-4f84-ae28-15be93cc811a"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["For CY : " + $F{jobyear}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="438" height="20" uuid="f1d74d70-fd57-4285-9560-eccec7c8e6d7"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROJECT/PROGRAMS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="0" width="102" height="20" uuid="1709ae3a-ea38-41df-b891-fdee2021bc68"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NO. OF J.O.'s]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="438" height="20" uuid="7623006f-884e-444a-90ea-4a328d0313d9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{projtitle}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="438" y="0" width="102" height="20" uuid="25316a84-333d-4f1d-8036-2e52a1b22d5d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="438" height="20" uuid="c20598a4-1272-450e-918e-dfb7cca1ab12"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL JOs]]></text>
+			</staticText>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="438" y="0" width="102" height="20" uuid="b0fc99c0-7995-49d3-b02e-e3a945b80563"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{Tanan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

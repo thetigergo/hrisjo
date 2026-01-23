@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dumlao" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="468" leftMargin="72" rightMargin="72" topMargin="72" bottomMargin="72" uuid="882c6b41-3c26-4f3e-9df5-d7129136d5f2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborders"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="inch"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="net.sf.jasperreports.print.create.bookmarks" value="false"/>
+	<parameter name="DateFr" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2024-01-01", new java.text.ParsePosition(0))]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DateTo" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2024-01-31", new java.text.ParsePosition(0))]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[WITH dumlao AS (
+	SELECT COUNT(*) AS kabook, opesina, 'COS' AS tayps FROM pay.laborpaid 
+	WHERE (paid_up = TRUE) AND (datefr >= $P{DateFr}) AND (dateto <= $P{DateTo}) GROUP BY opesina
+	UNION ALL
+	SELECT COUNT(*) AS kabook, opesina, 'JOS' AS tayps FROM pay.timebook
+	WHERE (paid_up = TRUE) AND (datefr >= $P{DateFr}) AND (dateto <= $P{DateTo}) GROUP BY opesina
+) SELECT 
+	dumlao.kabook, 
+	dumlao.tayps,
+	offices.office
+FROM
+	dumlao INNER JOIN psnl.offices
+	ON dumlao.opesina = offices.offcid
+ORDER BY
+	dumlao.tayps,
+	offices.office;]]>
+	</queryString>
+	<field name="kabook" class="java.lang.Short">
+		<property name="com.jaspersoft.studio.field.name" value="kabook"/>
+		<property name="com.jaspersoft.studio.field.label" value="kabook"/>
+	</field>
+	<field name="tayps" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tayps"/>
+		<property name="com.jaspersoft.studio.field.label" value="tayps"/>
+	</field>
+	<field name="office" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="office"/>
+		<property name="com.jaspersoft.studio.field.label" value="office"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="offices"/>
+	</field>
+	<variable name="TananKada" class="java.lang.Short" resetType="Group" resetGroup="Tyepo" calculation="Sum">
+		<variableExpression><![CDATA[$F{kabook}]]></variableExpression>
+	</variable>
+	<variable name="TananGyud" class="java.lang.Short" calculation="Sum">
+		<variableExpression><![CDATA[$F{kabook}]]></variableExpression>
+	</variable>
+	<group name="Tyepo" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{tayps}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField>
+					<reportElement x="0" y="0" width="468" height="16" uuid="f54ddedf-faad-42ad-9bbb-6000befeb84d">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tayps}.equals( "COS" ) ? "Contract of Service" : "Job Order"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="40">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<textField>
+					<reportElement x="80" y="0" width="388" height="20" uuid="a34a5af8-363e-4635-af41-b5c82b67f131">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box leftPadding="10">
+						<topPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TananKada}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="80" height="20" uuid="8be3d743-7815-4334-be68-6133ecc986e7"/>
+					<box leftPadding="20">
+						<topPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[T O T A L]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="170" height="20" uuid="b457e8bc-7068-470a-ac45-4f2d55fc0b75">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JO and Contractual Wages]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="0" width="268" height="20" uuid="de1d7c0a-8961-46a3-a261-e0f0dc295123"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Date Range " + 
+new java.text.SimpleDateFormat("yyyy-MMM-dd").format($P{DateFr}) +
+" to " +
+new java.text.SimpleDateFormat("yyyy-MMM-dd").format($P{DateTo})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="20" uuid="89e05aec-ffe5-48c2-888c-9c0088560383">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db1695c7-1ef4-4621-8115-22f973256886"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Person]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="388" height="20" uuid="a597dfce-0c76-4a78-b31c-7657b0a0b047">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2fca32c5-eb77-4939-a7f9-1fdbfc12cb29"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Office / Department Name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="50" height="20" uuid="1c74a1c5-7b1d-4cba-a6aa-77ef2a1f30aa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db1695c7-1ef4-4621-8115-22f973256886"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{kabook}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="388" height="20" uuid="cb8f925e-78af-436d-ae3c-59d2a4240a33">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2fca32c5-eb77-4939-a7f9-1fdbfc12cb29"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{office}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="140" height="20" uuid="ed24df76-c2cc-4e0d-b0ab-50f8bf8ed1d1"/>
+				<box leftPadding="20">
+					<topPen lineWidth="0.75" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[G R A N D   T O T A L]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="0" width="328" height="20" uuid="69548f2f-f212-424d-9aa6-0ae9028ca090">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="10">
+					<topPen lineWidth="0.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TananGyud}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
