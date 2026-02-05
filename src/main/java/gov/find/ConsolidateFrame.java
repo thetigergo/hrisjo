@@ -650,7 +650,7 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         Integer ctrlno, idx = cboSelect.getSelectedIndex();
         String text = txtCtrlNo.getText();
-        if (!text.isBlank())
+        if (!text.trim().isBlank() || !text.isBlank())
             ctrlno = Integer.valueOf(text, 10);
         else {
             btnAppend.setToolTipText(evt.getActionCommand());
