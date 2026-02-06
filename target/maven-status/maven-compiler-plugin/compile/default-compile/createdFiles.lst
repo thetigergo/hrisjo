@@ -20,9 +20,11 @@ gov\hrisjo\MainJFrame$9.class
 jrpts\jreport\ATM_Non_JFrame.class
 gov\cont\NamesDialog$6.class
 gov\reports\SummaryJFrame$3.class
+gov\entry\JobOrderIFrame.class
 gov\admin\EraseUserJFrame$5.class
 gov\cont\ContractIFrame$13.class
 gov\reports\SummarizeJFrame$1.class
+gov\admin\CreateUserJFrame$UserLogon.class
 gov\hrisjo\MainJFrame$13.class
 gov\cont\ContractIFrame$8.class
 gov\hrisjo\maven\Hrisjo.class

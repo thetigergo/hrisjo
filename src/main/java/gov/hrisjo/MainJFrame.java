@@ -402,11 +402,35 @@ public class MainJFrame extends javax.swing.JFrame {
                 //String petsa =
                 PetsaRon = rst.getDate(3);
             }
-            mnuEntries     .setVisible(System.getProperty("ACCESS") == null);
-            ManageUserMenu .setVisible(System.getProperty("ACCESS") == null);
-            ProjectItem    .setVisible(System.getProperty("ACCESS") == null);
-            ConsolidateItem.setVisible(System.getProperty("ACCESS") == null);
+            
+            boolean isNull = System.getProperty("ACCESS") == null;
+            mnuEntries     .setVisible(isNull);
+            ManageUserMenu .setVisible(isNull);
+            ProjectItem    .setVisible(isNull);
+            ConsolidateItem.setVisible(isNull);
 
+            boolean grants = System.getProperty("GRANTS") != null;
+            if (isNull & grants) {
+                grants = System.getProperty("GRANTS").contains("~");
+                String[] permits = grants ? System.getProperty("GRANTS").split("~") : new String[]{};
+                
+                if (permits.length > 0) {
+                    isNull = Boolean.parseBoolean(permits[0]);
+                    EmployeePopup.setEnabled(isNull);
+
+                    isNull = Boolean.parseBoolean(permits[1]);
+                    CreateJobItem.setEnabled(isNull);
+
+                    isNull = Boolean.parseBoolean(permits[2]);
+                    ContractItem.setEnabled(isNull);
+
+                    isNull = Boolean.parseBoolean(permits[3]);
+                    ManageUserMenu.setEnabled(isNull);
+
+                    isNull = Boolean.parseBoolean(permits[4]);
+                    ConsolidateItem.setEnabled(isNull);
+                }
+            }
 
 
         } catch (java.sql.SQLException ex) {

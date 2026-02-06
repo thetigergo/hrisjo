@@ -14,7 +14,9 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
 
     private static final long serialVersionUID = -1396261292250746260L;
 
-    private final java.util.ArrayList<String> LogList = new java.util.ArrayList<>();
+    private final java.util.ArrayList<UserLogon> LogList = new java.util.ArrayList<>();
+    private final java.util.ArrayList<javax.swing.JCheckBox> checkBoxes = new java.util.ArrayList<>();
+    
 
     /** Creates new form MngUserIFrm */
     @SuppressWarnings("this-escape")
@@ -38,6 +40,13 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
         txtUserName = new javax.swing.JTextField();
         javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
         txtUserID = new javax.swing.JTextField();
+        javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
+        CheckBox1 = new javax.swing.JCheckBox();
+        CheckBox2 = new javax.swing.JCheckBox();
+        CheckBox3 = new javax.swing.JCheckBox();
+        javax.swing.JSeparator jSeparator3 = new javax.swing.JSeparator();
+        CheckBox4 = new javax.swing.JCheckBox();
+        CheckBox5 = new javax.swing.JCheckBox();
         javax.swing.JToolBar jToolBar1 = new javax.swing.JToolBar();
         javax.swing.JButton cmdClear = new javax.swing.JButton();
         javax.swing.JButton cmdSave = new javax.swing.JButton();
@@ -54,20 +63,20 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
         setTitle("MANAGE USER ACCESS RIGHTS");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/leaf.png"))); // NOI18N
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                InternalFrameOpened(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                InternalFrameOpened(evt);
             }
         });
 
@@ -87,6 +96,54 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel3.setText("USER NAME");
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Permission Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
+
+        CheckBox1.setText("Job Order's Information");
+
+        CheckBox2.setText("Create Job Order");
+
+        CheckBox3.setText("Contractual Information");
+
+        CheckBox4.setText("Manage User");
+
+        CheckBox5.setText("Payroll Consolidation");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator3)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CheckBox1)
+                            .addComponent(CheckBox2)
+                            .addComponent(CheckBox3)
+                            .addComponent(CheckBox4)
+                            .addComponent(CheckBox5))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(CheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CheckBox2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CheckBox3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CheckBox4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CheckBox5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -94,17 +151,20 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pwdPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                    .addComponent(txtUserName)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtUserID)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pwdPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                            .addComponent(txtUserName)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtUserID)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cboUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -123,12 +183,13 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("USER", jPanel1);
 
-        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         cmdClear.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -137,7 +198,6 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
         cmdClear.setBorderPainted(false);
         cmdClear.setFocusable(false);
         cmdClear.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        cmdClear.setOpaque(false);
         cmdClear.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         cmdClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,7 +212,6 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
         cmdSave.setBorderPainted(false);
         cmdSave.setFocusable(false);
         cmdSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        cmdSave.setOpaque(false);
         cmdSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         cmdSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,7 +228,6 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
         cmdClose.setBorderPainted(false);
         cmdClose.setFocusable(false);
         cmdClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        cmdClose.setOpaque(false);
         cmdClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         cmdClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,13 +303,27 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
         try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
                 java.sql.Statement psmt = jdbc.createStatement()) {
 
+            StringBuilder permits = new StringBuilder();
+            short length = (short)checkBoxes.size();
+            for (short abc = 0; abc <= length; abc++) {
+                if (abc == length) {
+                    permits.deleteCharAt(abc -1);
+                    break;
+                }
+                
+                boolean test = checkBoxes.get(abc).isSelected();
+                permits.append(test ? "true" : "false").append("~");
+            }
+            
+            
             dbase.SQLExecute saver = new dbase.SQLExecute("public.userlogon");
             saver.FieldName("userid",     !NUMERIC, enums.Take.InsertOnly, CONDITION, txtUserID.getText());
-            saver.FieldName("pazzword",    NUMERIC, enums.Take.InsertUpdate, "crypt('" + String.valueOf(pwdPassword.getPassword()) + "', gen_salt('bf'))");
             saver.FieldName("passwrd",    !NUMERIC, enums.Take.InsertUpdate, ".");
-            saver.FieldName("phaseoff",    NUMERIC, enums.Take.InsertUpdate, "FALSE");
-            saver.FieldName("which",      !NUMERIC, enums.Take.InsertUpdate, "cmo");
             saver.FieldName("userdescrp", !NUMERIC, enums.Take.InsertUpdate, txtUserName.getText());
+            saver.FieldName("phaseoff",    NUMERIC, enums.Take.InsertUpdate, "FALSE");
+            saver.FieldName("permeso",    !NUMERIC, enums.Take.InsertUpdate, "cmo");
+            saver.FieldName("which",      !NUMERIC, enums.Take.InsertUpdate, "cmo");
+            saver.FieldName("pazzword",    NUMERIC, enums.Take.InsertUpdate, "crypt('" + String.valueOf(pwdPassword.getPassword()) + "', gen_salt('bf'))");
             int success = psmt.executeUpdate(saver.Perform(enums.Fire.doUpdate));
             if (success == 0)
                 success = psmt.executeUpdate(saver.Perform(enums.Fire.doInsert));
@@ -278,6 +350,12 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
 
     private void InternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_InternalFrameOpened
         // TODO add your handling code here:
+        checkBoxes.add(CheckBox1);
+        checkBoxes.add(CheckBox2);
+        checkBoxes.add(CheckBox3);
+        checkBoxes.add(CheckBox4);
+        checkBoxes.add(CheckBox5);
+        
         ReloadUser();
     }//GEN-LAST:event_InternalFrameOpened
 
@@ -292,8 +370,23 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
         int index = cboUserID.getSelectedIndex();
         if (index < 0) return;
         
-        txtUserID.setText(LogList.get(index));
+        txtUserID.setText(LogList.get(index).getUserID());
         txtUserName.setText(cboUserID.getSelectedItem().toString());
+        
+        short test = (short)LogList.get(index).getPermiso().length;
+        if (test > 0) {
+            String[] PERMESO = LogList.get(index).getPermiso();
+            for (short abc = 0; abc < test; abc ++) {
+                boolean value = Boolean.parseBoolean(PERMESO[abc]);
+                checkBoxes.get(abc).setSelected(value);
+            }
+        } else {
+            CheckBox1.setSelected(false);
+            CheckBox2.setSelected(false);
+            CheckBox3.setSelected(false);
+            CheckBox4.setSelected(false);
+            CheckBox5.setSelected(false);
+        }
     }//GEN-LAST:event_cboUserIDActionPerformed
 
     private void ReloadUser() {
@@ -301,7 +394,8 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement(
                     "SELECT " +
                         "userid, " +
-                        "userdescrp " +
+                        "userdescrp, " +
+                        "permeso " +
                     "FROM " +
                         "public.userlogon " +
                     "WHERE " +
@@ -313,7 +407,12 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
             LogList.clear();
             cboUserID.removeAllItems();
             while (rst.next()) {
-                LogList.add(rst.getString(1));
+                boolean test = rst.getString(3) != null;
+                test = test ? rst.getString(3).contains("~"): test;
+                String[] PERMESO = (test ? rst.getString(3).split("~") : new String[]{});
+
+                UserLogon users = new UserLogon(rst.getString(1), PERMESO);
+                LogList.add(users);
                 cboUserID.addItem(rst.getString(2));
             }
 
@@ -325,6 +424,11 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox CheckBox1;
+    private javax.swing.JCheckBox CheckBox2;
+    private javax.swing.JCheckBox CheckBox3;
+    private javax.swing.JCheckBox CheckBox4;
+    private javax.swing.JCheckBox CheckBox5;
     private javax.swing.JComboBox<String> cboUserID;
     private javax.swing.JPasswordField pwdPassword;
     private javax.swing.JTextField txtUserID;
@@ -333,17 +437,17 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
     private final boolean NUMERIC   = true,
                           CONDITION = true;
     
-//    private class UserLogon {
-//        
-//        private final String userID, UserName;
-//
-//        public UserLogon(String userid, String ngalan) {
-//            userID = userid; UserName = ngalan;
-//        }
-//
-//        public String getUserID() {return userID;}
-//
-//        public String getUserName() {return UserName;}
-//        
-//    }
+    private class UserLogon {
+        
+        private final String userID;
+        private final String[] Permeso;
+
+        public UserLogon(String userid, String[] permit) {
+            userID = userid; Permeso = permit;
+        }
+
+        public String getUserID() {return userID;}
+        public String[] getPermiso() {return Permeso;}
+        
+    }
 }
