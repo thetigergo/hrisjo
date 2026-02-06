@@ -307,7 +307,8 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
             short length = (short)checkBoxes.size();
             for (short abc = 0; abc <= length; abc++) {
                 if (abc == length) {
-                    permits.deleteCharAt(abc -1);
+                    length = (short)permits.length();
+                    permits.deleteCharAt(length - 1);
                     break;
                 }
                 
@@ -321,7 +322,7 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
             saver.FieldName("passwrd",    !NUMERIC, enums.Take.InsertUpdate, ".");
             saver.FieldName("userdescrp", !NUMERIC, enums.Take.InsertUpdate, txtUserName.getText());
             saver.FieldName("phaseoff",    NUMERIC, enums.Take.InsertUpdate, "FALSE");
-            saver.FieldName("permeso",    !NUMERIC, enums.Take.InsertUpdate, "cmo");
+            saver.FieldName("permeso",    !NUMERIC, enums.Take.InsertUpdate, permits);
             saver.FieldName("which",      !NUMERIC, enums.Take.InsertUpdate, "cmo");
             saver.FieldName("pazzword",    NUMERIC, enums.Take.InsertUpdate, "crypt('" + String.valueOf(pwdPassword.getPassword()) + "', gen_salt('bf'))");
             int success = psmt.executeUpdate(saver.Perform(enums.Fire.doUpdate));
@@ -332,6 +333,7 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
                 javax.swing.JOptionPane.showMessageDialog(this, "Record saved successfully.", title, javax.swing.JOptionPane.INFORMATION_MESSAGE);
             else
                 javax.swing.JOptionPane.showMessageDialog(this, "Record failed to saved.", title, javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            pwdPassword.setText("");
             ReloadUser();
 
 
