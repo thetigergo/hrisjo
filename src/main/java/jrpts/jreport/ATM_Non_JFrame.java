@@ -59,10 +59,13 @@ public class ATM_Non_JFrame extends javax.swing.JFrame {
         java.io.InputStream reportSource = getClass().getResourceAsStream("/jreport/joblisting_all.jasper");
         try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
             
+            java.util.Calendar calz = java.util.Calendar.getInstance();
+            calz.set(2025, 11, 31);
 
             // REPORT PARAMETERS
             java.util.Map<String, Object> params = new java.util.HashMap<>();
-//            params.put("AlobsNo", alobsid);
+            params.put("DatedOn", calz.getTime());
+            
 
             net.sf.jasperreports.engine.JasperPrint jasperPrint = net.sf.jasperreports.engine.JasperFillManager.fillReport(reportSource, params, jdbc);
             net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);

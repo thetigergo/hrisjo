@@ -37,6 +37,7 @@ gov\find\BatchCtrlDialog$1.class
 gov\reports\HistoryIFrame.class
 gov\reports\MasterlistJIFrame$3.class
 gov\trans\CreatorJFrame$RunReport.class
+gov\reports\JosCosWageJFrame$5.class
 gov\reports\SummarizeJFrame$2.class
 gov\trans\CreatorJFrame$2.class
 gov\cont\ContractIFrame$9.class
@@ -121,7 +122,6 @@ gov\find\LocateFrame$2.class
 gov\entry\JobOrderIFrame$9.class
 gov\trans\NamesDialog$6.class
 gov\find\ConsolidateFrame$2.class
-gov\reports\HistoryIFrame$1.class
 gov\cont\NamesDialog.class
 gov\find\ConsolidateFrame$9.class
 gov\trans\CreatorJFrame$9.class
@@ -132,6 +132,7 @@ gov\entry\JobOrderIFrame$3.class
 gov\reports\ActualResultJFrame$1.class
 gov\entry\JobOrderIFrame$5.class
 gov\reports\SummaryJFrame$1.class
+gov\reports\JosCosWageJFrame$4.class
 gov\hrisjo\MainJFrame$15.class
 gov\trans\NamesDialog$2.class
 gov\trans\NamesDialog$5.class

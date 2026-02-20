@@ -4,7 +4,6 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborders"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -15,6 +14,8 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborder"/>
+	<parameter name="DatedOn" class="java.util.Date" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[WITH detalye AS (
 	SELECT DISTINCT
@@ -28,7 +29,7 @@
 	  INNER JOIN psnl.offices
 	  ON jobarrange.offcloc = offices.offcid
 	WHERE 
-	  ('2024-11-30'::DATE BETWEEN jobarrange.frdate AND jobarrange.todate)
+	  ('2026-02-18'::DATE BETWEEN jobarrange.frdate AND jobarrange.todate)
 	ORDER BY
 	  offices.office
 )SELECT COUNT(pangalan)::SMALLINT AS pangalan, jobyear, office, nonatm 
@@ -92,13 +93,13 @@
 	</title>
 	<pageHeader>
 		<band height="23">
-			<staticText>
-				<reportElement x="0" y="0" width="572" height="23" uuid="874cc6c8-7a5a-468c-8fd7-a6e8d4db0108"/>
+			<textField pattern="MMMM yyyy">
+				<reportElement x="0" y="0" width="572" height="23" uuid="67bc8aa7-3c52-41c7-9fe8-de0a1036809a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
-				<text><![CDATA[December, 2024]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{DatedOn}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
