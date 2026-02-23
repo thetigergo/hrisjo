@@ -249,7 +249,7 @@ ORDER BY
 				<textElement verticalAlignment="Bottom">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ Job Orders Claimed]]></text>
+				<text><![CDATA[ Job Orders & Contractuals Claimed]]></text>
 			</staticText>
 			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
 				<reportElement x="331" y="0" width="121" height="14" uuid="8aae4ca2-955e-42d5-8983-8560e4787c93"/>
