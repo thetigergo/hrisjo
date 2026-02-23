@@ -142,23 +142,15 @@ public class MasterlistJIFrame extends javax.swing.JInternalFrame {
 
         java.util.Map<String, Object> params = new java.util.HashMap<>();
 
-//        org.apache.log4j.Logger logger = org.apache.log4j.Logger.getRootLogger();
-//        logger.setLevel(org.apache.log4j.Level.WARN);
-
         try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
             
             int index = cboChoice.getSelectedIndex();
             String value;
-            switch (index) {
-                case 0:
-                    value = "";
-                    break;
-                case 1:
-                    value = "1011";
-                    break;
-                default:
-                    value = "1021";
-            }
+            value = switch (index) {
+                case 0 -> "";
+                case 1 -> "1011";
+                default -> "1021";
+            };
             // REPORT PARAMETERS
             params.put("Anios", Short.valueOf(spnYear.getValue().toString(), 10));
             params.put("OfficeID", value);

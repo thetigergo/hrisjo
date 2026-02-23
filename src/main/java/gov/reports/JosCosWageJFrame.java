@@ -28,7 +28,7 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
         JOsKey = new java.lang.String();
         javax.swing.JButton cmdView = new javax.swing.JButton();
         javax.swing.JButton cmdPrint = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
         javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
@@ -112,11 +112,9 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cboBoxTo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(spnYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(spnYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboBoxFr, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +136,7 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Period Covered", jPanel1);
+        tabbedPane.addTab("Period Covered", jPanel1);
 
         spnAnios.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         spnAnios.setModel(new javax.swing.SpinnerNumberModel(2000, 2000, 3000, 1));
@@ -166,7 +164,7 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
         });
         cboName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboNameActionPerformed(evt);
+                nameActionPerformed(evt);
             }
         });
 
@@ -211,7 +209,7 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("JO's Monitoring", jPanel2);
+        tabbedPane.addTab("JO's/COS Monitoring", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,7 +223,7 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmdPrint))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -233,7 +231,7 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmdView)
@@ -272,49 +270,64 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
 
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
         // TODO add your handling code here:
+        new Thread(() -> {
+            try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+                java.io.InputStream reportSource;
+                java.util.Map<String, Object> params = new java.util.HashMap<>(); // REPORT PARAMETERS
+                
+                
+                switch (tabbedPane.getSelectedIndex()) {
+                    case 0 -> {
+                        String value = cboBoxFr.getSelectedItem().toString(),
+                               balor = cboBoxTo.getSelectedItem().toString();
+                        int index = cboBoxFr.getSelectedIndex(),
+                            length, lapads,
+                            endix = cboBoxTo.getSelectedIndex(),
+                            anios = (Integer)spnYear.getValue();
 
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
-            String value = cboBoxFr.getSelectedItem().toString(),
-                   balor = cboBoxTo.getSelectedItem().toString();
-            int index = cboBoxFr.getSelectedIndex(),
-                length, lapads,
-                endix = cboBoxTo.getSelectedIndex(),
-                anios = (Integer)spnYear.getValue();
-            
-            length = value.length();
-            lapads = balor.length();
-            value = value.substring(length - 2);
-            balor = balor.substring(lapads - 2);
-            int from = Integer.parseInt(value),
-                toos = Integer.parseInt(balor);
-            
-            java.util.Calendar calfr = java.util.Calendar.getInstance(),
-                               calto = java.util.Calendar.getInstance();
-            
-            calfr.set(anios, (index % 12), from, 0, 0, 0);
-            calto.set(anios, (endix % 12), toos, 0, 0, 0);
-            
-            // REPORT PARAMETERS
-            java.util.Map<String, Object> params = new java.util.HashMap<>();
-            params.put("DateFr", calfr.getTime());
-            params.put("DateTo", calto.getTime());
-            java.io.InputStream reportSource = getClass().getResourceAsStream("/jreport/dumlao.jasper");
+                        length = value.length();
+                        lapads = balor.length();
+                        value = value.substring(length - 2);
+                        balor = balor.substring(lapads - 2);
+                        int from = Integer.parseInt(value),
+                            toos = Integer.parseInt(balor);
 
-            boolean check = evt.getActionCommand().equals("Print");
-            net.sf.jasperreports.engine.JasperPrint jasperPrint = net.sf.jasperreports.engine.JasperFillManager.fillReport(reportSource, params, jdbc);
-            if (check)
-                net.sf.jasperreports.engine.JasperPrintManager.printReport(jasperPrint, true);
-            else
-                net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
+                        java.util.Calendar calfr = java.util.Calendar.getInstance(),
+                                           calto = java.util.Calendar.getInstance();
+
+                        calfr.set(anios, (index % 12), from, 0, 0, 0);
+                        calto.set(anios, (endix % 12), toos, 0, 0, 0);
+
+                        params.put("DateFr", calfr.getTime());
+                        params.put("DateTo", calto.getTime());
+                        reportSource = getClass().getResourceAsStream("/jreport/dumlao.jasper");
+                    }
+                    default -> {
+                        int anios = (Integer)spnAnios.getValue();
+                        
+                        String[] actgRefz = JOsKey.split("~");
+                        
+                        params.put("Anios",  (short)anios);
+                        params.put("ActgRefz", actgRefz);
+                        reportSource = getClass().getResourceAsStream("/jreport/nakasweldo.jasper");
+                    }
+                }
+                boolean check = evt.getActionCommand().equals("Print");
+                net.sf.jasperreports.engine.JasperPrint jasperPrint = net.sf.jasperreports.engine.JasperFillManager.fillReport(reportSource, params, jdbc);
+                if (check)
+                    net.sf.jasperreports.engine.JasperPrintManager.printReport(jasperPrint, true);
+                else
+                    net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
 
 
 
-        } catch (java.sql.SQLException | net.sf.jasperreports.engine.JRException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
-            java.util.logging.Logger.getLogger(JosCosWageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } finally {
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
+                java.util.logging.Logger.getLogger(JosCosWageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } finally {
 
-        }
+            }
+        }).start();
     }//GEN-LAST:event_viewActionPerformed
 
     private void namePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_namePopupMenuWillBecomeVisible
@@ -325,7 +338,7 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
         if (!xxxx.isBlank()) loadNames(xxxx);
     }//GEN-LAST:event_namePopupMenuWillBecomeVisible
 
-    private void cboNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNameActionPerformed
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
         // TODO add your handling code here:
         if (evt == null) return;
         
@@ -337,21 +350,21 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
             
             Short bulan = (short)(cboBulan.getSelectedIndex() + 1),
                   anios = Short.valueOf(spnAnios.getValue().toString(), 10),
-                  checkit = 0;
+                  checkit;
             String wrkid = NameIds.get(much), refkey = "";
             
             //Check if there is an advice.
             try (java.sql.PreparedStatement psmt = jdbc.prepareStatement(
-                    "SELECT advicekey, acctg_ref FROM pay.timebook " +
-                    "WHERE (worker = ?) AND paid_up AND " +
-                        "(DATE_PART('MONTH', datefr) = ?) AND " +
-                        "(DATE_PART('YEAR', datefr) = ?) " +
-                    "ORDER BY " +
-                        "datefr DESC " +
-                    "LIMIT 1;")) {
+                    "SELECT advicekey, acctg_ref FROM pay.timebook WHERE (worker = ?) AND paid_up AND (DATE_PART('MONTH', datefr) = ?) AND (DATE_PART('YEAR', datefr) = ?) " +
+                    "UNION ALL " +
+                    "SELECT advicekey, acctg_ref FROM pay.laborpaid WHERE (worker = ?) AND paid_up AND (DATE_PART('MONTH', datefr) = ?) AND (DATE_PART('YEAR', datefr) = ?);")) {
                 psmt.setString(1, wrkid);
                 psmt.setShort (2, bulan);
                 psmt.setShort (3, anios);
+               /**----------------------*/
+                psmt.setString(4, wrkid);
+                psmt.setShort (5, bulan);
+                psmt.setShort (6, anios);
                 try (java.sql.ResultSet rst = psmt.executeQuery()) {
                    if (rst.next()) {
                        boolean test = rst.getString(1) == null;
@@ -362,20 +375,24 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
                 }
             }
             switch (checkit) {
-                case -1: //meaning cash advance
+                case -1 -> //meaning cash advance
                     JOsKey = findAdvances(refkey);
-                    break;
-                case 0: //meaning no payroll
-                default: //meaning ATM
+                
+                case 0 -> //meaning no payroll
+                    javax.swing.JOptionPane.showMessageDialog(this, "No Payroll yet!", title, javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                
+                default -> //meaning ATM
+                    JOsKey = findAdvice(refkey);
             }
+            System.out.println(JOsKey);
         
         } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(JosCosWageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         }
-    }//GEN-LAST:event_cboNameActionPerformed
+    }//GEN-LAST:event_nameActionPerformed
     private void loadNames(String names) {
         setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
         try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
@@ -403,7 +420,7 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
             }
                 
         } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(JosCosWageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -422,20 +439,50 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
                         voucher = "";
                 }
             }
-            if (voucher.isEmpty()) javax.swing.JOptionPane.showMessageDialog(this, "No Cash Advance yet.", getTitle(), javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            if (voucher.isEmpty()) javax.swing.JOptionPane.showMessageDialog(this, "No Cash Advance yet.", title, javax.swing.JOptionPane.INFORMATION_MESSAGE);
             
-//            try (java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT acctgref FROM adv.payrolls WHERE (voucher = ?);")) {
-//                psmt.setString(1, voucher);
-//                try (java.sql.ResultSet rst = psmt.executeQuery()) {
-//                    while (rst.next()) 
-//                        acctref.append(rst.getString(1)).append(",");
-//                    int test = acctref.length();
-//                    if (test > 0) acctref.deleteCharAt(test - 1);
-//                }
-//            }
+            try (java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT acctgref FROM adv.payrolls WHERE (voucher = ?);")) {
+                psmt.setString(1, voucher);
+                try (java.sql.ResultSet rst = psmt.executeQuery()) {
+                    StringBuilder acctref = new StringBuilder();
+                    while (rst.next()) 
+                        acctref.append(rst.getString(1)).append("~");
+                    int test = acctref.length();
+                    if (test > 0) {
+                        acctref.deleteCharAt(test - 1);
+                        voucher = acctref.toString();
+                    }
+                }
+            }
             
         } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
+            java.util.logging.Logger.getLogger(JosCosWageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        return voucher;
+    }
+    private String findAdvice(String debitkey) {
+        String voucher = "";
+        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+            try (java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT DISTINCT acctg_ref FROM pay.timebook WHERE (advicekey = ?) " +
+                                                                         "UNION ALL " +
+                                                                         "SELECT DISTINCT acctg_ref FROM pay.laborpaid WHERE (advicekey = ?);")) {
+                psmt.setString(1, debitkey);
+                psmt.setString(2, debitkey);
+                try (java.sql.ResultSet rst = psmt.executeQuery()) {
+                    StringBuilder acctref = new StringBuilder();
+                    while (rst.next()) 
+                        acctref.append(rst.getString(1)).append("~");
+                    int test = acctref.length();
+                    if (test > 0) {
+                        acctref.deleteCharAt(test - 1);
+                        voucher = acctref.toString();
+                    }
+                }
+            }
+            
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(JosCosWageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return voucher;
@@ -447,9 +494,9 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cboBoxTo;
     private javax.swing.JComboBox<String> cboBulan;
     private javax.swing.JComboBox<String> cboName;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JSpinner spnAnios;
     private javax.swing.JSpinner spnYear;
+    private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 
 }

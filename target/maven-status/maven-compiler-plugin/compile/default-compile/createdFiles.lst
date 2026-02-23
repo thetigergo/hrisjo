@@ -122,6 +122,7 @@ gov\find\LocateFrame$2.class
 gov\entry\JobOrderIFrame$9.class
 gov\trans\NamesDialog$6.class
 gov\find\ConsolidateFrame$2.class
+gov\reports\HistoryIFrame$1.class
 gov\cont\NamesDialog.class
 gov\find\ConsolidateFrame$9.class
 gov\trans\CreatorJFrame$9.class

@@ -39,7 +39,7 @@
                       <Component id="cmdPrint" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jTabbedPane1" min="-2" pref="274" max="-2" attributes="0"/>
+                      <Component id="tabbedPane" min="-2" pref="274" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -51,7 +51,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" min="-2" pref="130" max="-2" attributes="0"/>
+              <Component id="tabbedPane" min="-2" pref="130" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="cmdView" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -95,7 +95,7 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
       </AuxValues>
     </Component>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="tabbedPane">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -125,13 +125,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="cboBoxTo" min="-2" pref="209" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="spnYear" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="spnYear" min="-2" max="-2" attributes="0"/>
                           <Component id="cboBoxFr" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -241,8 +238,8 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="JO&apos;s Monitoring">
-                <Property name="tabTitle" type="java.lang.String" value="JO&apos;s Monitoring"/>
+              <JTabbedPaneConstraints tabName="JO&apos;s/COS Monitoring">
+                <Property name="tabTitle" type="java.lang.String" value="JO&apos;s/COS Monitoring"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -263,7 +260,7 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="spnAnios" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cboBulan" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cboBulan" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="127" max="32767" attributes="0"/>
                           </Group>
@@ -368,7 +365,7 @@
               </Properties>
               <Events>
                 <EventHandler event="popupMenuWillBecomeVisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="namePopupMenuWillBecomeVisible"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboNameActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new organize.JComboDynamicWidth&lt;&gt;()"/>
