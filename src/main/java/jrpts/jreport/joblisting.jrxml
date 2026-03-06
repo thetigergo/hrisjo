@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="612" pageHeight="936" whenNoDataType="AllSectionsNoDetail" columnWidth="286" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="0d44144c-eefc-4be3-824c-d148b051f3da">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="612" pageHeight="936" whenNoDataType="AllSectionsNoDetail" columnWidth="286" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d44144c-eefc-4be3-824c-d148b051f3da">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborders"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborder"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="DatedOn" class="java.util.Date" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2024-11-30")]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2025-12-31")]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT DISTINCT
@@ -23,8 +23,8 @@ FROM
 WHERE 
   --(DATE_PART('YEAR', jobarrange.frdate) = 2023) AND
   --(('2023-10-01'::DATE BETWEEN jobarrange.frdate AND jobarrange.todate) OR
-  ($P{DatedOn} BETWEEN jobarrange.frdate AND jobarrange.todate) AND
-  (offcid NOT IN('1021', '1021-A'))
+  ($P{DatedOn} BETWEEN jobarrange.frdate AND jobarrange.todate) 
+  --AND (offcid NOT IN('1021', '1021-A'))
 ORDER BY
   offices.office,
   jobworker.lastname, 
@@ -89,7 +89,7 @@ ORDER BY
 	</title>
 	<pageHeader>
 		<band height="45">
-			<textField pattern="MMMM yyyy">
+			<textField pattern="MMMM dd, yyyy">
 				<reportElement x="156" y="0" width="260" height="23" uuid="b3626559-bcac-4a1e-a93a-c3d60c884359"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{DatedOn}]]></textFieldExpression>
@@ -218,8 +218,8 @@ ORDER BY
 			</textField>
 		</band>
 	</pageFooter>
-	<summary>
-		<band height="168">
+	<lastPageFooter>
+		<band height="40">
 			<staticText>
 				<reportElement x="33" y="20" width="61" height="20" uuid="6a697e2e-cf90-4d80-a42b-c2c78c772d43"/>
 				<textElement verticalAlignment="Middle">
@@ -254,6 +254,11 @@ ORDER BY
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="168">
+			<printWhenExpression><![CDATA[false]]></printWhenExpression>
 			<staticText>
 				<reportElement x="30" y="92" width="61" height="16" uuid="33f08595-4dcc-4493-bbd3-8e3b0fa04cc6"/>
 				<textElement verticalAlignment="Middle">

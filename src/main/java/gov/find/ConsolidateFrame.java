@@ -1180,8 +1180,8 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
 
     private void menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionPerformed
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
-        retrieveItem.setEnabled(BatchCtrl.isBlank() | BatchCtrl.isEmpty()); 
+        if (evt == null) return;
+        retrieveItem.setEnabled(BatchCtrl == null || BatchCtrl.isBlank() | BatchCtrl.isEmpty()); 
         menuPopup.show(btnMenu, 0, btnMenu.getHeight());
     }//GEN-LAST:event_menuActionPerformed
 
