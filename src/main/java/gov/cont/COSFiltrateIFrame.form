@@ -124,7 +124,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;Contractual Filtration &#x2192; The process of excluding contracts that are inactive or no longer associated with the LGU.&#xa;&lt;br/&gt;&#xa;&lt;b&gt;Check the box to remove contract-of-service personnel who are no longer employed in our LGU.&lt;/b&gt;&#xa;&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt; Contractual Filtration &#x2192; The process of excluding contracts that are inactive or no longer associated with the LGU. &lt;br/&gt; &lt;b&gt;Check the box below to remove contract-of-service personnel who are no longer employed in our LGU.&lt;/b&gt; &lt;/html&gt;"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>

@@ -103,7 +103,7 @@ public class COSFiltrateIFrame extends javax.swing.JInternalFrame {
         getContentPane().add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(547, 41, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel1.setText("<html>\nContractual Filtration → The process of excluding contracts that are inactive or no longer associated with the LGU.\n<br/>\n<b>Check the box to remove contract-of-service personnel who are no longer employed in our LGU.</b>\n</html>");
+        jLabel1.setText("<html> Contractual Filtration → The process of excluding contracts that are inactive or no longer associated with the LGU. <br/> <b>Check the box below to remove contract-of-service personnel who are no longer employed in our LGU.</b> </html>");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, 500, -1));
 
         txtFilter.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
