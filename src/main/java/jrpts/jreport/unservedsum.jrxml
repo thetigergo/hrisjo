@@ -1,158 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="612" pageHeight="936" whenNoDataType="AllSectionsNoDetail" columnWidth="286" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98789422-7180-4852-b2ef-7e823da3c97a">
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="286" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="98789422-7180-4852-b2ef-7e823da3c97a">
 	<property name="ireport.zoom" value="2.1435888100000025"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborders"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="594"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="396"/>
-	<subDataset name="subDataset" uuid="29866c8a-c911-406e-bc6f-d2800075befc">
-		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="168"/>
-		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="824"/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborders"/>
-		<parameter name="psnlrefno" class="java.lang.String"/>
-		<queryString language="SQL">
-			<![CDATA[WITH detalye AS (
-	SELECT
-		jobnum, jobyear, empkey,
-		COUNT(*) AS kabook,
-		(SELECT COUNT(*) FROM cbo.jobcontrol WHERE (jobref = jobarrange.jobnum) AND (empkey = jobarrange.empkey) AND (jobyear = jobarrange.jobyear)) AS nahimo
-	FROM
-		cbo.jobarrange
-	WHERE
-		(psnl_ref = $P{psnlrefno})
-	GROUP BY
-		jobnum, jobyear, empkey
-), summary AS (
-	SELECT
-		jobnum, 
-		SUM(kabook) * MAX(nahimo) AS tanan,
-		SUM(nahimo) AS nahuman, 
-		((SUM(nahimo) / (SUM(kabook) * MAX(nahimo))) * 100.0)::NUMERIC(9, 2) AS porcento
-	FROM detalye GROUP BY jobnum
-) SELECT jobnum,	tanan, nahuman, porcento FROM summary]]>
-		</queryString>
-		<field name="jobnum" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="jobnum"/>
-			<property name="com.jaspersoft.studio.field.label" value="jobnum"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="jobarrange"/>
-		</field>
-		<field name="tanan" class="java.lang.Double">
-			<property name="com.jaspersoft.studio.field.name" value="tanan"/>
-			<property name="com.jaspersoft.studio.field.label" value="tanan"/>
-		</field>
-		<field name="nahuman" class="java.lang.Double">
-			<property name="com.jaspersoft.studio.field.name" value="nahuman"/>
-			<property name="com.jaspersoft.studio.field.label" value="nahuman"/>
-		</field>
-		<field name="porcento" class="java.lang.Double">
-			<property name="com.jaspersoft.studio.field.name" value="porcento"/>
-			<property name="com.jaspersoft.studio.field.label" value="porcento"/>
-		</field>
-	</subDataset>
-	<parameter name="Opesina" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["1021"]]></defaultValueExpression>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborder"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="DatedFr" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2026-01-01", new java.text.ParsePosition(0));]]></defaultValueExpression>
 	</parameter>
-	<parameter name="DatedOn" class="java.util.Date" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2023-12-31", new java.text.ParsePosition(0));]]></defaultValueExpression>
+	<parameter name="DateTo" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2026-02-28", new java.text.ParsePosition(0));]]></defaultValueExpression>
 	</parameter>
-	<parameter name="mySubReport" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[SELECT DISTINCT
-	offices.office, projects.projtitle, jobarrange.psnl_ref
-FROM
-	cbo.jobarrange INNER JOIN cbo.projects
-	ON jobarrange.project = projects.projid
+		<![CDATA[SELECT 
+	offices.office, COUNT(*)::SMALLINT
+FROM cbo.jobarrange INNER JOIN psnl.jobworker
+	ON jobarrange.empkey = jobworker.uniqkey
 	INNER JOIN psnl.offices
-	ON projects.offcloc = offices.offcid
+	ON jobarrange.offcloc = offices.offcid 
 WHERE
-   (offices.offcid = $P{Opesina}) AND
-   (jobarrange.todate = $P{DatedOn})
-ORDER BY
-	offices.office,
-	projects.projtitle]]>
+	(jobarrange.offcloc <> '1021') AND
+	(jobarrange.jobyear = DATE_PART('YEAR', $P{DateTo}::DATE )) AND
+	(NOT EXISTS(SELECT 0 FROM pay.timebook 
+				WHERE (worker = jobarrange.empkey) AND (jobordno = jobarrange.jobnum) AND 
+			   		  (datefr >= $P{DatedFr}::DATE ) AND (dateto <= $P{DateTo}::DATE ) AND (DATE_PART('YEAR', datefr) = DATE_PART('YEAR', $P{DateTo}::DATE ))))
+GROUP BY offices.office
+ORDER BY offices.office]]>
 	</queryString>
 	<field name="office" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="office"/>
 		<property name="com.jaspersoft.studio.field.label" value="office"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="offices"/>
 	</field>
-	<field name="projtitle" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="projtitle"/>
-		<property name="com.jaspersoft.studio.field.label" value="projtitle"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="projects"/>
+	<field name="count" class="java.lang.Short">
+		<property name="com.jaspersoft.studio.field.name" value="count"/>
+		<property name="com.jaspersoft.studio.field.label" value="count"/>
 	</field>
-	<field name="psnl_ref" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="psnl_ref"/>
-		<property name="com.jaspersoft.studio.field.label" value="psnl_ref"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="jobarrange"/>
-	</field>
-	<group name="Office">
-		<groupExpression><![CDATA[$F{office}]]></groupExpression>
-		<groupHeader>
-			<band height="16">
-				<textField>
-					<reportElement x="0" y="0" width="286" height="16" forecolor="#FF0000" uuid="202333a0-6cbc-496a-80e7-f1863c74462e">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<textElement verticalAlignment="Middle">
-						<font isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{office}.toUpperCase()]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
-	</group>
-	<group name="Project">
-		<groupExpression><![CDATA[$F{projtitle}]]></groupExpression>
-		<groupHeader>
-			<band height="16">
-				<textField>
-					<reportElement x="0" y="0" width="286" height="16" uuid="169d7b5c-4b53-4bc4-a704-e06c23a02945">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e9b57436-21f7-4462-8718-97f7d5133b40"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<textElement verticalAlignment="Bottom"/>
-					<textFieldExpression><![CDATA[$F{projtitle}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band height="15">
-				<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				<staticText>
-					<reportElement x="0" y="0" width="286" height="15" uuid="65567656-768d-469b-a890-61c29402fb73">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.5"/>
-					</box>
-					<text><![CDATA[]]></text>
-				</staticText>
-			</band>
-		</groupFooter>
-	</group>
+	<variable name="TotalCount" class="java.lang.Short" calculation="Sum">
+		<variableExpression><![CDATA[$F{count}]]></variableExpression>
+	</variable>
 	<pageHeader>
-		<band height="36">
+		<band height="58">
 			<staticText>
-				<reportElement x="190" y="0" width="193" height="18" uuid="23afac89-4b32-4833-9d69-1e31f25608f9">
+				<reportElement x="176" y="0" width="220" height="18" uuid="23afac89-4b32-4833-9d69-1e31f25608f9">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Summary of J.O's. Payroll Served]]></text>
+				<text><![CDATA[Summary of J.O's. Unserved Payroll]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="176" y="18" width="220" height="30" uuid="44d0c803-7121-4132-a604-70eaf1713003"/>
+				<textFieldExpression><![CDATA["Date from " + new java.text.SimpleDateFormat("MMM d").format($P{DatedFr}) + " to " + new java.text.SimpleDateFormat("MMM d, yyyy").format($P{DateTo})]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="26" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="80" height="26" uuid="f9c06cd3-2f17-4897-861c-fe5097d8edc7"/>
+				<reportElement x="0" y="0" width="216" height="26" uuid="f9c06cd3-2f17-4897-861c-fe5097d8edc7"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.5"/>
@@ -160,10 +79,10 @@ ORDER BY
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[J.O. Number]]></text>
+				<text><![CDATA[Office]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="80" y="0" width="70" height="26" uuid="aa887258-483a-4334-af46-e23d8fe76e24"/>
+				<reportElement x="216" y="0" width="70" height="26" uuid="aa887258-483a-4334-af46-e23d8fe76e24"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -173,45 +92,54 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[Estimated Count]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="150" y="0" width="70" height="26" uuid="454ab87e-0865-4e3b-851c-0d5ca040d562"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Payroll Processed]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="220" y="0" width="49" height="26" uuid="ec3a01f1-f141-421c-9d5e-e3f664ef556a"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Percent Rate]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="16" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<subreport>
-				<reportElement x="1" y="0" width="285" height="16" uuid="eea1af46-8cdb-4850-a7be-9f0445d2726f">
+			<textField>
+				<reportElement x="0" y="0" width="216" height="16" uuid="5167e347-793a-4484-b6c3-762abad32d7a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a0ffc2b3-4aa7-4e38-a43d-04660b32312e"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<subreportParameter name="personelrefno">
-					<subreportParameterExpression><![CDATA[$F{psnl_ref}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["D:\\NetBeansApache\\Desktop\\hrisjo\\src\\main\\java\\jrpts\\subrpt\\subunserved.jrxml"]]></subreportExpression>
-			</subreport>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{office}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="216" y="0" width="70" height="16" uuid="0a009e1d-0993-4067-acd0-5e5c4831ff3c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c22aa720-f58f-42db-b503-9577913d5ddb"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
+	<columnFooter>
+		<band height="16">
+			<textField>
+				<reportElement x="216" y="0" width="70" height="16" uuid="ea162db8-b654-4755-8cc6-edfc40349295">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalCount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="216" height="16" uuid="640a4858-3eb8-44a7-9b2b-38fc91f7f57f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[T O T A L]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
 	<pageFooter>
 		<band height="14">
 			<textField>

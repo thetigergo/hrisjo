@@ -16,6 +16,7 @@ public class MainJFrame extends javax.swing.JFrame {
     
     private gov.entry.JobOrderIFrame            jobworkers;
     private gov.cont .ContractIFrame            contWorker;
+    private gov.cont.COSFiltrateIFrame          filterCOS;
     private gov.trans.CreatorJFrame             createJob;
     
     private gov.reports.HistoryIFrame           listJob;
@@ -75,8 +76,9 @@ public class MainJFrame extends javax.swing.JFrame {
         CreateUserItem = new javax.swing.JMenuItem();
         EraseUserItem = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        ProjectItem = new javax.swing.JMenuItem();
         LocateItem = new javax.swing.JMenuItem();
+        javax.swing.JPopupMenu.Separator jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        COSTogglerItem = new javax.swing.JMenuItem();
         ConsolidateItem = new javax.swing.JMenuItem();
         javax.swing.JMenu mnuSystem = new javax.swing.JMenu();
         javax.swing.JMenuItem HistoryItem = new javax.swing.JMenuItem();
@@ -203,15 +205,6 @@ public class MainJFrame extends javax.swing.JFrame {
         AdminMenu.add(ManageUserMenu);
         AdminMenu.add(jSeparator1);
 
-        ProjectItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/leaf.png"))); // NOI18N
-        ProjectItem.setText("CREATE PROJECT 2012");
-        ProjectItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProjectItemAction(evt);
-            }
-        });
-        AdminMenu.add(ProjectItem);
-
         LocateItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/leaf.png"))); // NOI18N
         LocateItem.setText("Search/Locate");
         LocateItem.addActionListener(new java.awt.event.ActionListener() {
@@ -220,6 +213,16 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
         AdminMenu.add(LocateItem);
+        AdminMenu.add(jSeparator4);
+
+        COSTogglerItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/filter.png"))); // NOI18N
+        COSTogglerItem.setText("Contractual Filteration");
+        COSTogglerItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                COSTogglerItemAction(evt);
+            }
+        });
+        AdminMenu.add(COSTogglerItem);
 
         ConsolidateItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/consolidate.png"))); // NOI18N
         ConsolidateItem.setText("Payroll Consolidation");
@@ -235,7 +238,6 @@ public class MainJFrame extends javax.swing.JFrame {
         mnuSystem.setText("SYSTEM");
 
         HistoryItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/history.png"))); // NOI18N
-        HistoryItem.setMnemonic('Q');
         HistoryItem.setText("History");
         HistoryItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,7 +247,6 @@ public class MainJFrame extends javax.swing.JFrame {
         mnuSystem.add(HistoryItem);
 
         SummarizeItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/report.png"))); // NOI18N
-        SummarizeItem.setMnemonic('Q');
         SummarizeItem.setText("Summarize");
         SummarizeItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,7 +256,6 @@ public class MainJFrame extends javax.swing.JFrame {
         mnuSystem.add(SummarizeItem);
 
         SummaryItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/report.png"))); // NOI18N
-        SummaryItem.setMnemonic('Q');
         SummaryItem.setText("Summary");
         SummaryItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,7 +265,6 @@ public class MainJFrame extends javax.swing.JFrame {
         mnuSystem.add(SummaryItem);
 
         NewJOListItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/report.png"))); // NOI18N
-        NewJOListItem.setMnemonic('Q');
         NewJOListItem.setText("New JO Listing");
         NewJOListItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,7 +274,6 @@ public class MainJFrame extends javax.swing.JFrame {
         mnuSystem.add(NewJOListItem);
 
         ActualCountItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/report.png"))); // NOI18N
-        ActualCountItem.setMnemonic('Q');
         ActualCountItem.setText("Actual JO/Endo Count");
         ActualCountItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,7 +283,6 @@ public class MainJFrame extends javax.swing.JFrame {
         mnuSystem.add(ActualCountItem);
 
         UnservedItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/report.png"))); // NOI18N
-        UnservedItem.setMnemonic('Q');
         UnservedItem.setText("Unserved J.O.");
         UnservedItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,7 +292,6 @@ public class MainJFrame extends javax.swing.JFrame {
         mnuSystem.add(UnservedItem);
 
         DumlaoWageItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/report.png"))); // NOI18N
-        DumlaoWageItem.setMnemonic('Q');
         DumlaoWageItem.setText("JOs & COS Nakasweldo");
         DumlaoWageItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -305,7 +301,6 @@ public class MainJFrame extends javax.swing.JFrame {
         mnuSystem.add(DumlaoWageItem);
 
         MasterListItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/report.png"))); // NOI18N
-        MasterListItem.setMnemonic('Q');
         MasterListItem.setText("Master List");
         MasterListItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -317,7 +312,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
         popQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         popQuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/quit.png"))); // NOI18N
-        popQuit.setMnemonic('Q');
         popQuit.setText("Quit");
         popQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -340,7 +334,7 @@ public class MainJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -350,7 +344,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void EmployeePopupAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeePopupAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (jobworkers == null || jobworkers.isClosed()) {
             jobworkers = new gov.entry.JobOrderIFrame();
             mdiDesktopPane.add(jobworkers);
@@ -361,7 +355,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void popQuitAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popQuitAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         dispatchEvent(new java.awt.event.WindowEvent(this, java.awt.event.WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_popQuitAction
 
@@ -406,7 +400,6 @@ public class MainJFrame extends javax.swing.JFrame {
             boolean isNull = System.getProperty("ACCESS") == null;
             mnuEntries     .setVisible(isNull);
             ManageUserMenu .setVisible(isNull);
-            ProjectItem    .setVisible(isNull);
             ConsolidateItem.setVisible(isNull);
 
             boolean grants = System.getProperty("GRANTS") != null;
@@ -438,14 +431,12 @@ public class MainJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
             txtWhoIam.setText(System.getProperty("USERNAME"));
-            
-            ProjectItem.setVisible(false);
         }
     }//GEN-LAST:event_WindowOpened
 
     private void CreateUserItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateUserItemAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (createUser == null || createUser.isClosed()) {
             createUser = new gov.admin.CreateUserJFrame();
             mdiDesktopPane.add(createUser);
@@ -460,34 +451,16 @@ public class MainJFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
-    private void ProjectItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProjectItemAction
+    private void COSTogglerItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_COSTogglerItemAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
-//        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
-//                java.sql.PreparedStatement psmt = jdbc.prepareStatement("INSERT INTO " +
-//                        "cbo.projects " +
-//                    "SELECT " +
-//                        "DATE_PART('YEAR', NOW()) || SUBSTRING(projid, 5, 6), " +
-//                        "projtitle, 0.0, '" + System.getProperty("USERID") + "', DATE_PART('YEAR', NOW())::SMALLINT, offcloc " +
-//                    "FROM " +
-//                        "cbo.projects " +
-//                    "WHERE " +
-//                        "(atyear = (DATE_PART('YEAR', NOW()) - 1))" +
-//                    "ORDER BY " +
-//                        "projid");
-//                java.sql.PreparedStatement pzmt = jdbc.prepareStatement("UPDATE cbo.parameters SET present = DATE_PART('YEAR', NOW())::SMALLINT")) {
-//            psmt.executeUpdate();
-//            pzmt.executeUpdate();
-            javax.swing.JOptionPane.showMessageDialog(this, "New Project batch created.", getTitle(), javax.swing.JOptionPane.INFORMATION_MESSAGE);
-//
-//
-//        } catch (java.sql.SQLException ex) {
-//            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
-//            java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } finally {
-//
-//        }
-    }//GEN-LAST:event_ProjectItemAction
+        if (evt == null) return;
+        if (filterCOS == null || filterCOS.isClosed()) {
+            filterCOS = new gov.cont.COSFiltrateIFrame();
+            mdiDesktopPane.add(filterCOS);
+            filterCOS.setVisible(true);
+        } else
+            filterCOS.setVisible(true);
+    }//GEN-LAST:event_COSTogglerItemAction
 
     private void AdminMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_AdminMenuMenuSelected
         // TODO add your handling code here:
@@ -519,7 +492,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void CreateJobItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateJobItemActionPerformed
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (createJob == null || createJob.isClosed()) {
             createJob = new gov.trans.CreatorJFrame();
             mdiDesktopPane.add(createJob);
@@ -530,7 +503,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void ContractItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContractItemActionPerformed
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (contWorker == null || contWorker.isClosed()) {
             contWorker = new gov.cont.ContractIFrame();
             mdiDesktopPane.add(contWorker);
@@ -541,7 +514,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void EraseUserItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EraseUserItemAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (removeUser == null || removeUser.isClosed()) {
             removeUser = new gov.admin.EraseUserJFrame();
             mdiDesktopPane.add(removeUser);
@@ -552,7 +525,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void HistoryItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryItemAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (listJob == null || listJob.isClosed()) {
             listJob = new gov.reports.HistoryIFrame();
             mdiDesktopPane.add(listJob);
@@ -563,7 +536,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void SummarizeItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SummarizeItemAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (sumAllJob == null || sumAllJob.isClosed()) {
             sumAllJob = new gov.reports.SummarizeJFrame();
             mdiDesktopPane.add(sumAllJob);
@@ -574,7 +547,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void LocateItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocateItemAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (findForm == null || findForm.isClosed()) {
             findForm = new gov.find.LocateFrame();
             mdiDesktopPane.add(findForm);
@@ -585,7 +558,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void SummaryItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SummaryItemAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (summaryJob == null || summaryJob.isClosed()) {
             summaryJob = new gov.reports.SummaryJFrame();
             mdiDesktopPane.add(summaryJob);
@@ -596,7 +569,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void NewJOListItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewJOListItemAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         java.io.InputStream reportSource = getClass().getResourceAsStream("/jreport/newJOlist.jasper");
 
         java.util.Calendar cald = java.util.Calendar.getInstance();
@@ -629,7 +602,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void ActualCountItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualCountItemAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (actualCount == null || actualCount.isClosed()) {
             actualCount = new gov.reports.ActualResultJFrame();
             mdiDesktopPane.add(actualCount);
@@ -640,7 +613,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void MasterListItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MasterListItemAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (masterList == null || masterList.isClosed()) {
             masterList = new gov.reports.MasterlistJIFrame();
             mdiDesktopPane.add(masterList);
@@ -651,7 +624,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void consolidateItemAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consolidateItemAction
         // TODO add your handling code here:
-        if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
+        if (evt == null) return;
         if (consolForm == null || consolForm.isClosed()) {
             consolForm = new gov.find.ConsolidateFrame();
             mdiDesktopPane.add(consolForm);
@@ -705,6 +678,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AdminMenu;
+    private javax.swing.JMenuItem COSTogglerItem;
     private javax.swing.JMenuItem ConsolidateItem;
     private javax.swing.JMenuItem ContractItem;
     private javax.swing.JMenuItem CreateJobItem;
@@ -714,7 +688,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem LocateItem;
     private javax.swing.JMenu ManageUserMenu;
     private static java.util.Date PetsaRon;
-    private javax.swing.JMenuItem ProjectItem;
     private mdiMenu.MDIDesktopPane mdiDesktopPane;
     private javax.swing.JMenu mnuEntries;
     private javax.swing.JToggleButton toggleTheme;
