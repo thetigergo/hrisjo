@@ -33,6 +33,7 @@ public class COSFiltrateIFrame extends javax.swing.JInternalFrame {
         txtFilter = new javax.swing.JTextField();
         javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
 
+        setClosable(true);
         setTitle("Contractual Filtration");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/leaf.png"))); // NOI18N
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -168,7 +169,7 @@ public class COSFiltrateIFrame extends javax.swing.JInternalFrame {
                 model.addRow(arData);
             }
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(COSFiltrateIFrame.this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(COSFiltrateIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -226,7 +227,7 @@ public class COSFiltrateIFrame extends javax.swing.JInternalFrame {
             else
                 javax.swing.JOptionPane.showMessageDialog(this, "COS failed to updated!", title, javax.swing.JOptionPane.WARNING_MESSAGE);
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(COSFiltrateIFrame.this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(COSFiltrateIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
