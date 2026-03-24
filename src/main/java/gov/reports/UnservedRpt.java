@@ -32,22 +32,12 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cboDays = new javax.swing.JComboBox<>();
-        txtYear = new javax.swing.JTextField();
-        javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
         javax.swing.JButton btnPrint = new javax.swing.JButton();
         javax.swing.JButton btnClose = new javax.swing.JButton();
         lblStatus = new javax.swing.JLabel();
-        cboOffice = new javax.swing.JComboBox<>();
         javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
-        javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
-        javax.swing.JButton btnPrint1 = new javax.swing.JButton();
-        dtpDateFr = new com.toedter.calendar.JDateChooser();
-        dtpDateTo = new com.toedter.calendar.JDateChooser();
-
-        cboDays.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-
-        txtYear.setEditable(false);
+        spnYear = new javax.swing.JSpinner();
+        cboMonth = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("UNSERVED J.O. LISTING");
@@ -70,11 +60,8 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel1.setText("OFFICE");
-
         btnPrint.setForeground(java.awt.Color.red);
-        btnPrint.setText("View Summary");
+        btnPrint.setText("Preview");
         btnPrint.setBorderPainted(false);
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,23 +82,14 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
         lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblStatus.setText(".");
 
-        cboOffice.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        cboOffice.setMaximumRowCount(19);
-
         jLabel7.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel7.setText("Date");
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel2.setText("TO");
+        spnYear.setModel(new javax.swing.SpinnerNumberModel(Short.valueOf((short)2000), Short.valueOf((short)2000), Short.valueOf((short)3000), Short.valueOf((short)1)));
+        spnYear.setEditor(new javax.swing.JSpinner.NumberEditor(spnYear, "#0"));
 
-        btnPrint1.setForeground(java.awt.Color.red);
-        btnPrint1.setText("View Detail");
-        btnPrint1.setBorderPainted(false);
-        btnPrint1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                detailPerformPrint(evt);
-            }
-        });
+        cboMonth.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        cboMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,47 +99,33 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnPrint)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPrint1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnClose))
-                    .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(dtpDateFr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dtpDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cboOffice, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(btnPrint)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnClose))
+                            .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(cboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spnYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 13, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cboOffice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
-                    .addComponent(dtpDateFr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dtpDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPrint)
-                    .addComponent(btnClose)
-                    .addComponent(btnPrint1))
+                    .addComponent(btnClose))
                 .addGap(18, 18, 18)
                 .addComponent(lblStatus)
                 .addContainerGap())
@@ -180,17 +144,16 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
 
         try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
             
-//            int petsa = cboDays.getSelectedIndex();
-//            java.util.Date datedon = aUntil.get(petsa);
-//            int index = cboOffice.getSelectedIndex();
-//            String office = arOpesina.get(index);
             
             java.util.Calendar calfr = java.util.Calendar.getInstance(),
                                calto = java.util.Calendar.getInstance();
-            calto.setTime(dtpDateTo.getDate());
-            int anios = calto.get(java.util.Calendar.YEAR);
-            calfr.setTime(dtpDateFr.getDate());
-            calfr.set(java.util.Calendar.YEAR, anios);
+            int bulan = cboMonth.getSelectedIndex(),
+                tuiga = Integer.parseInt(spnYear.getValue().toString(), 10),
+                lastd;
+            lastd = java.time.YearMonth.of(tuiga, (bulan + 1)).atEndOfMonth().getDayOfMonth();
+            
+            calto.set(tuiga, bulan, lastd);
+            calfr.set(tuiga, bulan, 1);
 
             // REPORT PARAMETERS
             params.put("DatedFr", calfr.getTime());
@@ -215,102 +178,29 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         lblStatus.setText("");
         try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
-                java.sql.PreparedStatement psmt = jdbc.prepareStatement(
-                    "SELECT DISTINCT " +
-                        "jobarrange.offcloc, " +
-                        "offices.office " +
-                    "FROM " +
-                        "cbo.jobarrange INNER JOIN psnl.offices " +
-                        "ON jobarrange.offcloc = offices.offcid " +
-                    "WHERE " +
-                        "(jobarrange.jobyear = ?) " +
-                    "ORDER BY " +
-                        "offices.office");
                 java.sql.PreparedStatement pzmt = jdbc.prepareStatement("SELECT DATE_PART('YEAR', MAX(datefr)) FROM pay.timebook;")) {
             java.util.Calendar cald = java.util.Calendar.getInstance();
             
             try (java.sql.ResultSet rst = pzmt.executeQuery()) {
                 if (rst.next()) Anios = rst.getShort(1);
             }
-            
-            psmt.setShort(1, Anios);
-            try (java.sql.ResultSet rst = psmt.executeQuery()) {
-                cboOffice.removeAllItems(); arOpesina.clear();
-//                cboOffice.addItem("<ALL OFFICES>");
-//                arOpesina.add("");
-                while (rst.next()) {
-                    arOpesina.add(rst.getString(1));
-                    cboOffice.addItem(rst.getString(2));
-                }
-            }
-            txtYear.setText(Anios.toString());
-//            cald.set(Anios, 0, 1);
-//            calDateFr.setMinSelectableDate(cald.getTime());
-//            calDateTo.setMinSelectableDate(cald.getTime());
-//            
-//            cald.set(Anios, 11, 31);
-//            calDateFr.setMaxSelectableDate(cald.getTime());
-//            calDateTo.setMaxSelectableDate(cald.getTime());
+            spnYear.setValue(Anios);
+            cboMonth.setSelectedIndex(cald.get(java.util.Calendar.MONTH));
             
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(UnservedRpt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
             
         }
-        
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        for (short xyz = 0; xyz < 12; xyz++) {
-            cal.set(Anios, xyz, 1);
-            String month = new java.text.SimpleDateFormat("MMMM").format(cal.getTime());
-            
-            cal.set(Anios, xyz, 15);
-            cboDays.addItem(month + " - 15");
-            aUntil.add(cal.getTime());
-
-            cal.set(Anios, xyz + 1, 0);
-            cboDays.addItem(month + " - " + cal.get(java.util.Calendar.DATE));
-            aUntil.add(cal.getTime());            
-        }   
     }//GEN-LAST:event_formInternalFrameOpened
-
-    private void detailPerformPrint(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailPerformPrint
-        // TODO add your handling code here:
-        lblStatus.setText("Previewing report, please wait....");
-        java.io.InputStream reportSource = getClass().getResourceAsStream("/jreport/unservedlist.jasper");
-        
-
-        java.util.Map<String, Object> params = new java.util.HashMap<>();
-
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
-            int petsa = cboDays.getSelectedIndex();
-            java.util.Date datedon = aUntil.get(petsa);
-            int index = cboOffice.getSelectedIndex();
-            String office = arOpesina.get(index);
-
-            // REPORT PARAMETERS
-            params.put("Opesina", office);
-            params.put("DatedOn", datedon);
-
-            net.sf.jasperreports.engine.JasperPrint jasperPrint = net.sf.jasperreports.engine.JasperFillManager.fillReport(reportSource, params, jdbc);
-            net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
-            lblStatus.setText("");
-
-        } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
-            java.util.logging.Logger.getLogger(UnservedRpt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_detailPerformPrint
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cboDays;
-    private javax.swing.JComboBox<String> cboOffice;
-    private com.toedter.calendar.JDateChooser dtpDateFr;
-    private com.toedter.calendar.JDateChooser dtpDateTo;
+    private javax.swing.JComboBox<String> cboMonth;
     private javax.swing.JLabel lblStatus;
-    private javax.swing.JTextField txtYear;
+    private javax.swing.JSpinner spnYear;
     // End of variables declaration//GEN-END:variables
 
     private Short Anios;

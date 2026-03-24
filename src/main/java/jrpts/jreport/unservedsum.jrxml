@@ -20,7 +20,7 @@
 	<parameter name="DatedFr" class="java.util.Date" isForPrompting="false">
 		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2026-01-01", new java.text.ParsePosition(0));]]></defaultValueExpression>
 	</parameter>
-	<parameter name="DateTo" class="java.util.Date" isForPrompting="false">
+	<parameter name="DatedTo" class="java.util.Date" isForPrompting="false">
 		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2026-02-28", new java.text.ParsePosition(0));]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -32,12 +32,12 @@ FROM cbo.jobarrange INNER JOIN psnl.jobworker
 	ON jobarrange.offcloc = offices.offcid 
 WHERE
 	(jobarrange.offcloc <> '1021') AND
-	(jobarrange.jobyear = DATE_PART('YEAR', $P{DateTo}::DATE)) AND
+	(jobarrange.jobyear = DATE_PART('YEAR', $P{DatedTo}::DATE)) AND
 	($P{DatedFr}::DATE BETWEEN jobarrange.frdate AND jobarrange.todate) AND
 	(NOT EXISTS(SELECT 0 FROM pay.timebook 
 				WHERE (worker = jobarrange.empkey) AND 
-			   		  (datefr >= $P{DatedFr}::DATE ) AND (dateto <= $P{DateTo}::DATE ) AND
-				      (DATE_PART('YEAR', datefr) = DATE_PART('YEAR', $P{DateTo}::DATE))))
+			   		  (datefr >= $P{DatedFr}::DATE ) AND (dateto <= $P{DatedTo}::DATE ) AND
+				      (DATE_PART('YEAR', datefr) = DATE_PART('YEAR', $P{DatedTo}::DATE))))
 ORDER BY offices.office]]>
 	</queryString>
 	<field name="office" class="java.lang.String">
@@ -109,7 +109,7 @@ ORDER BY offices.office]]>
 			</staticText>
 			<textField>
 				<reportElement x="176" y="18" width="220" height="30" uuid="44d0c803-7121-4132-a604-70eaf1713003"/>
-				<textFieldExpression><![CDATA["Date from " + new java.text.SimpleDateFormat("MMM d").format($P{DatedFr}) + " to " + new java.text.SimpleDateFormat("MMM d, yyyy").format($P{DateTo})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Date from " + new java.text.SimpleDateFormat("MMM d").format($P{DatedFr}) + " to " + new java.text.SimpleDateFormat("MMM d, yyyy").format($P{DatedTo})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -142,25 +142,6 @@ ORDER BY offices.office]]>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="16">
-			<staticText>
-				<reportElement x="0" y="0" width="216" height="16" uuid="640a4858-3eb8-44a7-9b2b-38fc91f7f57f"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[T O T A L]]></text>
-			</staticText>
-			<textField evaluationTime="Master">
-				<reportElement x="216" y="0" width="70" height="16" uuid="ba7f2564-932e-4972-944e-c4f1d6938401"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
-			</textField>
-		</band>
-	</columnFooter>
 	<pageFooter>
 		<band height="14">
 			<textField>
@@ -193,4 +174,23 @@ ORDER BY offices.office]]>
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="16">
+			<staticText>
+				<reportElement x="286" y="0" width="216" height="16" uuid="640a4858-3eb8-44a7-9b2b-38fc91f7f57f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[T O T A L]]></text>
+			</staticText>
+			<textField evaluationTime="Master">
+				<reportElement x="502" y="0" width="70" height="16" uuid="ba7f2564-932e-4972-944e-c4f1d6938401"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>
