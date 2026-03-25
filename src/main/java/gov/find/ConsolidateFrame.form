@@ -447,7 +447,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txt2ndName">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Atty. CRISTINA R. PARI&#xd1;AS"/>
+                    <Property name="text" type="java.lang.String" value="Atty. LEX JOSHUA ANDREW U. SILVOSA"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txt2ndRank">
@@ -559,7 +559,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txt3rdName">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Atty. CRISTINA R. PARI&#xd1;AS"/>
+                    <Property name="text" type="java.lang.String" value="Atty. LEX JOSHUA ANDREW U. SILVOSA"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txt3rdRank">

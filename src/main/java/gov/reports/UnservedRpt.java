@@ -14,8 +14,6 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
 
     private static final long serialVersionUID = 1L;
     
-    private final java.util.ArrayList<String> arOpesina = new java.util.ArrayList<>();
-    private transient final java.util.List<java.util.Date> aUntil = new java.util.ArrayList<>();
     
 //    private String appPath = System.getProperties().getProperty("user.dir");
     

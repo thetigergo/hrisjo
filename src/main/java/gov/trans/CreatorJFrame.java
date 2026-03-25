@@ -906,7 +906,7 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
         try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
                 java.sql.Statement stmt = jdbc.createStatement(); java.sql.Statement _smt = jdbc.createStatement();
                 java.sql.ResultSet rst = stmt.executeQuery("SELECT offcid, office FROM psnl.offices ORDER BY office");
-                java.sql.ResultSet tbl = _smt.executeQuery("SELECT pangalan, designate, budgetary, ranggo, mayorya FROM psnl.preparedby ORDER BY priority DESC LIMIT 1")) {
+                java.sql.ResultSet tbl = _smt.executeQuery("SELECT pangalan, designate, budgetary, ranggo, mayorya, recommend, rankomend FROM psnl.preparedby ORDER BY priority DESC LIMIT 1")) {
             int year = Integer.parseInt(System.getProperty("ANIOS"), 10);
             while (rst.next()) {
                 arOpesina.add(rst.getString(1));
@@ -918,6 +918,8 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
                 txtCertBy .setText(tbl.getString(3));
                 txtCertPos.setText(tbl.getString(4));
                 txtAppBy  .setText(tbl.getString(5));
+                txtRecBy  .setText(tbl.getString(6));
+                txtRecPos .setText(tbl.getString(7));
             }
             spnYear.setValue(year);
             

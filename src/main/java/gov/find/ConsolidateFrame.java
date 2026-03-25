@@ -233,7 +233,7 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "2nd Signatory", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
 
-        txt2ndName.setText("Atty. CRISTINA R. PARIÑAS");
+        txt2ndName.setText("Atty. LEX JOSHUA ANDREW U. SILVOSA");
 
         txt2ndRank.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         txt2ndRank.setText("City Administrator");
@@ -289,7 +289,7 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "3rd Signatory", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
 
-        txt3rdName.setText("Atty. CRISTINA R. PARIÑAS");
+        txt3rdName.setText("Atty. LEX JOSHUA ANDREW U. SILVOSA");
 
         txt3rdRank.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         txt3rdRank.setText("City Administrator");
