@@ -36,6 +36,7 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
         javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
         spnYear = new javax.swing.JSpinner();
         cboMonth = new javax.swing.JComboBox<>();
+        chkDetail = new javax.swing.JCheckBox();
 
         setClosable(true);
         setTitle("UNSERVED J.O. LISTING");
@@ -89,6 +90,9 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
         cboMonth.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         cboMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
 
+        chkDetail.setText("Detailed?");
+        chkDetail.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,7 +111,9 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(cboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(chkDetail)
+                            .addComponent(cboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(spnYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 13, Short.MAX_VALUE))))
@@ -120,7 +126,9 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(spnYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkDetail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPrint)
                     .addComponent(btnClose))
@@ -156,6 +164,7 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
             // REPORT PARAMETERS
             params.put("DatedFr", calfr.getTime());
             params.put("DatedTo", calto.getTime());
+            params.put("IsDetail", chkDetail.isSelected());
 
             net.sf.jasperreports.engine.JasperPrint jasperPrint = net.sf.jasperreports.engine.JasperFillManager.fillReport(reportSource, params, jdbc);
             net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
@@ -197,6 +206,7 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboMonth;
+    private javax.swing.JCheckBox chkDetail;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JSpinner spnYear;
     // End of variables declaration//GEN-END:variables
