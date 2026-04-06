@@ -25,10 +25,10 @@ public class COSFiltrateIFrame extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         RowSorter = new javax.swing.table.TableRowSorter();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         tblCos = new javax.swing.JTable();
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
         txtFilter = new javax.swing.JTextField();
         javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
@@ -216,7 +216,7 @@ public class COSFiltrateIFrame extends javax.swing.JInternalFrame {
             Short sized = (short)model.getRowCount();
             for (short abc = 0; abc < sized; abc++) {
                 Boolean which = (Boolean)model.getValueAt(abc, 0);
-                if (!which) continue;
+                //if (!which) continue;
                 
                 String unique = (String)model.getValueAt(abc, 4);
                 stmt.setBoolean(1, which);
@@ -241,8 +241,6 @@ public class COSFiltrateIFrame extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.table.TableRowSorter<javax.swing.table.TableModel> RowSorter;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCos;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables

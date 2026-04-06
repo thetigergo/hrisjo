@@ -28,6 +28,7 @@ gov\admin\CreateUserJFrame$UserLogon.class
 gov\hrisjo\MainJFrame$13.class
 gov\cont\ContractIFrame$8.class
 gov\hrisjo\maven\Hrisjo.class
+gov\entry\JobOrderIFrame$13.class
 gov\find\LocateFrame$1.class
 gov\hrisjo\LoginDialog$1.class
 gov\reports\JosCosWageJFrame.class

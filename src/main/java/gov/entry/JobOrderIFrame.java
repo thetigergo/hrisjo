@@ -56,6 +56,14 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
         txtBankAcct = new javax.swing.JTextField();
         javax.swing.JLabel jLabel18 = new javax.swing.JLabel();
         cboGender = new javax.swing.JComboBox<>();
+        lblAge = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        javax.swing.JLabel jLabel19 = new javax.swing.JLabel();
+        dtpHired = new com.toedter.calendar.JDateChooser();
+        javax.swing.JLabel jLabel20 = new javax.swing.JLabel();
+        cboEligible = new javax.swing.JComboBox<>();
+        cboClazzed = new javax.swing.JComboBox<>();
+        javax.swing.JLabel jLabel21 = new javax.swing.JLabel();
         javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
         javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         tblHuman = new javax.swing.JTable();
@@ -66,6 +74,8 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
         javax.swing.JMenu FileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem SavePopup = new javax.swing.JMenuItem();
         ErasePopup = new javax.swing.JMenuItem();
+        javax.swing.JPopupMenu.Separator jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        RetrieveItem = new javax.swing.JMenuItem();
         javax.swing.JMenu FormMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem ClearPopup = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -190,6 +200,61 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
         cboGender.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         cboGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Male", "Female" }));
 
+        lblAge.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        lblAge.setText("jLabel1");
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel19.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel19.setText("Date Hired");
+
+        dtpHired.setDateFormatString("MM/dd/yyyy");
+
+        jLabel20.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel20.setText("Eligibility");
+
+        cboEligible.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No Eligibility", "1st Eligibility", "2nd Eligibility" }));
+
+        cboClazzed.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Not Applicable", "Person with Disability (PWD)", "Indigenous People", "Solo Parent" }));
+
+        jLabel21.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel21.setText("Classification");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboEligible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtpHired, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboClazzed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19)
+                    .addComponent(dtpHired, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboEligible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboClazzed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -197,31 +262,7 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel16))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAddress)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtRanking)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLookPos))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(fmtRate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBankAcct))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dtpBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMidInit, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -244,9 +285,37 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(cboGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 32, Short.MAX_VALUE))
+                                .addGap(0, 36, Short.MAX_VALUE))
                             .addComponent(txtEmpID, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addComponent(cboSuffix, 0, 106, Short.MAX_VALUE))))
+                            .addComponent(cboSuffix, 0, 106, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAddress)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtRanking)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLookPos))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(dtpBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblAge))
+                                    .addComponent(txtMidInit, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(fmtRate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBankAcct)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -276,7 +345,8 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
                     .addComponent(dtpBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel18)
-                        .addComponent(cboGender, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cboGender, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblAge)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -284,17 +354,20 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLookPos)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtRanking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fmtRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(txtBankAcct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(11, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtRanking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel15)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(fmtRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtBankAcct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         tabPane.addTab("Information", jPanel1);
@@ -374,7 +447,7 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnFind))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -414,6 +487,18 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
             }
         });
         FileMenu.add(ErasePopup);
+        FileMenu.add(jSeparator2);
+
+        RetrieveItem.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        RetrieveItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/retrieve.png"))); // NOI18N
+        RetrieveItem.setText("RETRIEVE");
+        RetrieveItem.setEnabled(false);
+        RetrieveItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openActionPerformed(evt);
+            }
+        });
+        FileMenu.add(RetrieveItem);
 
         MenuBar.add(FileMenu);
 
@@ -493,8 +578,11 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
             try (java.sql.Statement stmt = jdbc.createStatement()) {
                 String ranking = txtRanking.getText(),
                        birthday = new java.text.SimpleDateFormat("yyyy-MM-dd").format(dtpBirthday.getDate()),
-                       Suffix    = cboSuffix.getSelectedItem().toString();
-                Short gender = (short)cboGender.getSelectedIndex();
+                       Suffix    = cboSuffix.getSelectedItem().toString(),
+                       hired = new java.text.SimpleDateFormat("yyyy-MM-dd").format(dtpHired.getDate());
+                Short gender = (short)cboGender.getSelectedIndex(),
+                      eligible = (short)cboEligible.getSelectedIndex(),
+                      classed = (short)cboClazzed.getSelectedIndex();
 
                 dbase.SQLExecute saver = new dbase.SQLExecute("psnl.jobworker");
                 saver.FieldName("uniqkey",   !NUMERIC, enums.Take.InsertOnly, CONDITION, txtUniqueID.getText());
@@ -506,12 +594,17 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
                     saver.FieldName("midname",   !NUMERIC, enums.Take.InsertUpdate, txtMidInit.getText().toUpperCase());
                 if (!txtAddress.getText().isEmpty())
                     saver.FieldName("address",   !NUMERIC, enums.Take.InsertUpdate, txtAddress.getText());
-                saver.FieldName("birthday",   !NUMERIC, enums.Take.InsertUpdate, birthday);
-                saver.FieldName("jobdesc", !NUMERIC, enums.Take.InsertUpdate, ranking);
-                saver.FieldName("payrate",  NUMERIC, enums.Take.InsertUpdate, fmtRate.getValue());
-                saver.FieldName("inputby", !NUMERIC, enums.Take.InsertUpdate, System.getProperty("USERID"));
-                saver.FieldName("offcloc",  NUMERIC, enums.Take.InsertUpdate, "NULL");
-                saver.FieldName("gender",   NUMERIC, enums.Take.InsertUpdate, gender);
+                saver.FieldName("birthday",  !NUMERIC, enums.Take.InsertUpdate, birthday);
+                saver.FieldName("jobdesc",   !NUMERIC, enums.Take.InsertUpdate, ranking);
+                saver.FieldName("payrate",    NUMERIC, enums.Take.InsertUpdate, fmtRate.getValue());
+                saver.FieldName("inputby",   !NUMERIC, enums.Take.InsertUpdate, System.getProperty("USERID"));
+                saver.FieldName("offcloc",    NUMERIC, enums.Take.InsertUpdate, "NULL");
+                saver.FieldName("gender",     NUMERIC, enums.Take.InsertUpdate, gender);
+                
+                
+                saver.FieldName("appointed", !NUMERIC, enums.Take.InsertUpdate, hired);
+                saver.FieldName("eligibled",  NUMERIC, enums.Take.InsertUpdate, eligible);
+                saver.FieldName("classified", NUMERIC, enums.Take.InsertUpdate, classed);
                 int success = stmt.executeUpdate(saver.Perform(enums.Fire.doUpdate));
 
                 if (success == 0)
@@ -541,6 +634,8 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
                 txtAddress .setEditable(false);
 
                 btnLookUp  .setEnabled(true);
+                
+                dtpHired.setDate(null);
             
 
 
@@ -562,7 +657,7 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int selRow = tblHuman.getSelectedRow();
         selRow = tblHuman.convertRowIndexToModel(selRow);
-        System.out.println("selRow" + selRow + " ~ " + tblHuman.getRowCount());
+//System.out.println("selRow" + selRow + " ~ " + tblHuman.getRowCount());
         if (selRow < 0) {
             javax.swing.JOptionPane.showMessageDialog(this, "SELECT A ROW TO RETRIEVE", title, javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
@@ -576,18 +671,22 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
                 java.sql.Statement stmt = jdbc.createStatement();
                 java.sql.ResultSet rst = stmt.executeQuery(
                     "SELECT " +
-                        "uniqkey, " +      // 1
-                        "empid, " +        // 2
-                        "suffix, " +       // 3
-                        "lastname, " +     // 4
-                        "firstname, " +    // 5
-                        "midname, " +      // 6
-                        "birthday, " +     // 7
-                        "address, " +      // 8
-                        "jobdesc, " +      // 9
-                        "payrate, " +      //10
-                        "bank_acct, " +    //11
-                        "gender " +        //12
+                        "uniqkey, " +       // 1
+                        "empid, " +         // 2
+                        "suffix, " +        // 3
+                        "lastname, " +      // 4
+                        "firstname, " +     // 5
+                        "midname, " +       // 6
+                        "birthday, " +      // 7
+                        "address, " +       // 8
+                        "jobdesc, " +       // 9
+                        "payrate, " +       //10
+                        "bank_acct, " +     //11
+                        "gender, " +        //12
+                        "EXTRACT(YEAR FROM AGE(NOW()::DATE, birthday)), " + //13
+                        "appointed, " +     //14
+                        "eligibled, " +     //15
+                        "classified " +     //16
                     "FROM " +
                         "psnl.jobworker " +
                     "WHERE " +
@@ -604,7 +703,12 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
                 txtRanking .setText(rst.getString(9));
                 fmtRate    .setValue(rst.getDouble(10));
                 txtBankAcct.setText(rst.getString(11));
-                cboGender.setSelectedIndex(rst.getShort(12));
+                cboGender  .setSelectedIndex(rst.getShort(12));
+                lblAge     .setText(rst.getShort(13) + " Y/O");
+                
+                dtpHired   .setDate(rst.getDate(14));
+                cboEligible.setSelectedIndex(rst.getShort(15));
+                cboClazzed .setSelectedIndex(rst.getShort(16));
                 
                 tabPane.setSelectedIndex(0);
             } else
@@ -667,6 +771,7 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
+        lblAge.setText("");
         txtSearch.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
@@ -744,6 +849,10 @@ $BODY$SELECT
 //                }
             }
         });
+        
+        tblHuman.getSelectionModel().addListSelectionListener((javax.swing.event.ListSelectionEvent lse) -> {
+            RetrieveItem.setEnabled(tblHuman.getSelectedRowCount() > 0);
+        });        
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void lookUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lookUpActionPerformed
@@ -811,14 +920,20 @@ $BODY$SELECT
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ErasePopup;
+    private javax.swing.JMenuItem RetrieveItem;
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnLookPos;
     private javax.swing.JButton btnLookUp;
     private javax.swing.JButton btnOpen;
+    private javax.swing.JComboBox<String> cboClazzed;
+    private javax.swing.JComboBox<String> cboEligible;
     private javax.swing.JComboBox<String> cboGender;
     private javax.swing.JComboBox<String> cboSuffix;
     private com.toedter.calendar.JDateChooser dtpBirthday;
+    private com.toedter.calendar.JDateChooser dtpHired;
     private javax.swing.JFormattedTextField fmtRate;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblAge;
     private javax.swing.JTabbedPane tabPane;
     private javax.swing.JTable tblHuman;
     private javax.swing.JTextField txtAddress;
