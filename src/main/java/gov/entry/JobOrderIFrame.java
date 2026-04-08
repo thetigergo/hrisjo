@@ -185,6 +185,11 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
 
         dtpBirthday.setDateFormatString("MM/dd/yyyy");
         dtpBirthday.setEnabled(false);
+        dtpBirthday.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                birthdayPropertyChange(evt);
+            }
+        });
 
         cboSuffix.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         cboSuffix.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "JR", "JR II", "SR", "I", "II", "III", "IV", "V", "VI" }));
@@ -209,6 +214,7 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
         jLabel19.setText("Date Hired");
 
         dtpHired.setDateFormatString("MM/dd/yyyy");
+        dtpHired.setEnabled(false);
 
         jLabel20.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel20.setText("Eligibility");
@@ -635,7 +641,11 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
 
                 btnLookUp  .setEnabled(true);
                 
-                dtpHired.setDate(null);
+                lblAge     .setText("");
+                dtpHired   .setDate(null);
+                dtpHired   .setEnabled(false);
+                cboEligible.setSelectedIndex(0);
+                cboClazzed .setSelectedIndex(0);
             
 
 
@@ -714,11 +724,13 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
             } else
                 javax.swing.JOptionPane.showMessageDialog(this, "Record not found.", title, javax.swing.JOptionPane.WARNING_MESSAGE);
 
-            txtSurName.setEditable(true);
+            txtSurName .setEditable(true);
             txtGiveName.setEditable(true);
-            txtMidInit.setEditable(true);
+            txtMidInit .setEditable(true);
             dtpBirthday.setEnabled(true);
-            txtAddress.setEditable(true);
+            txtAddress .setEditable(true);
+            
+            dtpHired   .setEnabled(true);
             
             btnLookUp.setEnabled(false);
 
@@ -916,6 +928,27 @@ $BODY$SELECT
 
         }
     }//GEN-LAST:event_findActionPerformed
+
+    private void birthdayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_birthdayPropertyChange
+        // TODO add your handling code here:
+        String retval = evt.getPropertyName();
+        if (!retval.equals("date")) return;
+        if (dtpBirthday.getDate() == null) return;
+        
+        retval = System.getProperty("PETSA");
+
+        // Parse today's date from the system property (ISO format: yyyy-MM-dd)
+        java.time.LocalDate today = java.time.LocalDate.parse(retval, java.time.format.DateTimeFormatter.ISO_LOCAL_DATE);
+
+        // Convert birthday (assuming dtpBirthday.getDate() returns a java.util.Date)
+        java.time.LocalDate birth = dtpBirthday.getDate().toInstant()
+                              .atZone(java.time.ZoneId.systemDefault())
+                              .toLocalDate();
+
+        // Option 1: Using Period
+        int years = java.time.Period.between(birth, today).getYears();
+        lblAge.setText(years + " Y/O");
+    }//GEN-LAST:event_birthdayPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

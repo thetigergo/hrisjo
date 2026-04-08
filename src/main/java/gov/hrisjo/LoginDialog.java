@@ -134,7 +134,7 @@ public class LoginDialog extends javax.swing.JFrame implements java.awt.event.Ac
         try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement(
                     "SELECT " +
-                        "userdescrp, permeso, date_part('year', now()) " +
+                        "userdescrp, permeso, date_part('year', now()), NOW()::DATE " +
                     "FROM " +
                         "public.userlogon " +
                     "WHERE " +
@@ -150,6 +150,7 @@ public class LoginDialog extends javax.swing.JFrame implements java.awt.event.Ac
                     System.setProperty("USERNAME", rst.getString(1));
                     System.setProperty("GRANTS",   rst.getString(2));
                     System.setProperty("ANIOS",    rst.getString(3));
+                    System.setProperty("PETSA",    rst.getString(4));
                     verified = true;
                 } else {
                     verified = false;

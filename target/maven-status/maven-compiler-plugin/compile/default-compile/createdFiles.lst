@@ -18,6 +18,7 @@ gov\reports\SummarizeJFrame.class
 gov\entry\JobOrderIFrame$1.class
 gov\hrisjo\MainJFrame$9.class
 jrpts\jreport\ATM_Non_JFrame.class
+gov\entry\JobOrderIFrame$14.class
 gov\cont\NamesDialog$6.class
 gov\reports\SummaryJFrame$3.class
 gov\entry\JobOrderIFrame.class
