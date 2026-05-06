@@ -222,19 +222,12 @@ public class ActualResultJFrame extends javax.swing.JInternalFrame {
             calto.set(anios, (endix % 12), toos, 0, 0, 0);
             
             index = cboChoice.getSelectedIndex();
-            switch (index) {
-                case 0:
-                    value = "";
-                    break;
-                case 1:
-                    value = "1011";
-                    break;
-                case 2:
-                    value = "1021";
-                    break;
-                default:
-                    value = "contract";
-            }
+            value = switch (index) {
+                case 0 -> "";
+                case 1 -> "1011";
+                case 2 -> "1021";
+                default -> "contract";
+            };
 
             // REPORT PARAMETERS
             java.util.Map<String, Object> params = new java.util.HashMap<>();

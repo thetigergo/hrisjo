@@ -37,6 +37,7 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
         spnYear = new javax.swing.JSpinner();
         cboMonth = new javax.swing.JComboBox<>();
         chkDetail = new javax.swing.JCheckBox();
+        cboChoice = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("UNSERVED J.O. LISTING");
@@ -93,6 +94,10 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
         chkDetail.setText("Detailed?");
         chkDetail.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
+        cboChoice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Job Orders", "Contract of Service" }));
+
+        new dbase.dcare.AutoCompleteCombo<String>();
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,6 +110,8 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnPrint)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cboChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnClose))
                             .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
@@ -116,7 +123,7 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
                             .addComponent(cboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(spnYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 13, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +138,8 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPrint)
-                    .addComponent(btnClose))
+                    .addComponent(btnClose)
+                    .addComponent(cboChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(lblStatus)
                 .addContainerGap())
@@ -143,7 +151,9 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
     private void summaryPerformPrint(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_summaryPerformPrint
         // TODO add your handling code here:
         lblStatus.setText("Previewing report, please wait....");
-        java.io.InputStream reportSource = getClass().getResourceAsStream("/jreport/unservedsum.jasper");
+        int which = cboChoice.getSelectedIndex();
+        String[] rptFile = {"unservedsum", "unservedcos"};
+        java.io.InputStream reportSource = getClass().getResourceAsStream("/jreport/" + rptFile[which] + ".jasper");
         
 
         java.util.Map<String, Object> params = new java.util.HashMap<>();
@@ -205,6 +215,7 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cboChoice;
     private javax.swing.JComboBox<String> cboMonth;
     private javax.swing.JCheckBox chkDetail;
     private javax.swing.JLabel lblStatus;

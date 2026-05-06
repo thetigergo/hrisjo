@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="286" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="98789422-7180-4852-b2ef-7e823da3c97a">
+	<property name="ireport.zoom" value="2.1435888100000025"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="594"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="396"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="joborder"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="DatedFr" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2026-01-01", new java.text.ParsePosition(0));]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DatedTo" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2026-02-28", new java.text.ParsePosition(0));]]></defaultValueExpression>
+	</parameter>
+	<parameter name="IsDetail" class="java.lang.Boolean" isForPrompting="false">
+		<defaultValueExpression><![CDATA[false]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+	offices.office,
+	humane(jobworker.lastname, jobworker.firstname, jobworker.suffix, jobworker.midname) AS ngalan
+FROM
+	psnl.jobworker INNER JOIN psnl.offices
+	ON jobworker.offcloc = offices.offcid 
+WHERE
+	(NOT phaseout) AND
+	(NOT EXISTS(SELECT 1 FROM pay.laborpaid
+				WHERE (worker = jobworker.uniqkey) AND 
+			   		  (datefr >= $P{DatedFr}::DATE ) AND (dateto <= $P{DatedTo}::DATE ) AND
+				      (DATE_PART('YEAR', datefr) = DATE_PART('YEAR', $P{DatedTo}::DATE))))
+ORDER BY
+	offices.office,
+	jobworker.lastname, 
+	jobworker.firstname]]>
+	</queryString>
+	<field name="office" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="office"/>
+		<property name="com.jaspersoft.studio.field.label" value="office"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="offices"/>
+	</field>
+	<field name="ngalan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ngalan"/>
+		<property name="com.jaspersoft.studio.field.label" value="ngalan"/>
+	</field>
+	<variable name="Totally" class="java.lang.Short" calculation="Sum"/>
+	<variable name="RecordCount" class="java.lang.Short" resetType="Group" resetGroup="Offices" calculation="Count">
+		<variableExpression><![CDATA[$F{ngalan}]]></variableExpression>
+	</variable>
+	<group name="Offices" isReprintHeaderOnEachColumn="true">
+		<groupExpression><![CDATA[$F{office}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<printWhenExpression><![CDATA[$P{IsDetail}]]></printWhenExpression>
+				<textField>
+					<reportElement x="0" y="0" width="240" height="16" uuid="cf6a3089-2f80-4ad4-b2f0-30fb74760e97">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{office}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Offices">
+					<reportElement x="240" y="0" width="46" height="16" forecolor="#FF0000" uuid="f8faf7df-f6e2-4d9d-877b-523c61a3f066"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Offices_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="16">
+				<printWhenExpression><![CDATA[!$P{IsDetail}]]></printWhenExpression>
+				<textField>
+					<reportElement x="0" y="0" width="240" height="16" uuid="93ad977a-1e74-4616-a7de-cd7062722c2b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{office}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Offices">
+					<reportElement x="240" y="0" width="46" height="16" forecolor="#FF0000" uuid="1730b06b-5fec-4a2d-8db0-0ae155414070"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Offices_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<pageHeader>
+		<band height="58">
+			<staticText>
+				<reportElement x="169" y="0" width="234" height="18" uuid="23afac89-4b32-4833-9d69-1e31f25608f9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unprocessed Payroll for CoS Personnel]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="176" y="18" width="220" height="30" uuid="44d0c803-7121-4132-a604-70eaf1713003"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Date from " + new java.text.SimpleDateFormat("MMM d").format($P{DatedFr}) + " to " + new java.text.SimpleDateFormat("MMM d, yyyy").format($P{DatedTo})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="286" height="26" uuid="74b661ae-2f52-4648-b08f-d76df6c9eac7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Office" + ($P{IsDetail} ? " & Name" : "")]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<printWhenExpression><![CDATA[$P{IsDetail}]]></printWhenExpression>
+			<textField>
+				<reportElement x="30" y="0" width="256" height="16" uuid="5167e347-793a-4484-b6c3-762abad32d7a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a0ffc2b3-4aa7-4e38-a43d-04660b32312e"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ngalan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="30" height="16" uuid="23c2e47e-6f49-4556-8778-766579e97070"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{RecordCount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="14">
+			<textField>
+				<reportElement x="286" y="0" width="254" height="14" forecolor="#0000FF" uuid="49c55391-ae76-4440-9642-65b3c7245929">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5" lineColor="#FF0000"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="540" y="0" width="32" height="14" forecolor="#0000FF" uuid="b8b8c5c2-e84a-418a-9ca3-e3fd55b0fb95">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#FF0000"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="286" height="14" forecolor="#0000FF" uuid="576d193d-f2b5-46d3-b8b4-dff670020fe4"/>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#FF0000"/>
+				</box>
+				<textFieldExpression><![CDATA["Record counting " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="16">
+			<property name="com.jaspersoft.studio.layout"/>
+			<staticText>
+				<reportElement x="286" y="0" width="240" height="16" uuid="640a4858-3eb8-44a7-9b2b-38fc91f7f57f">
+					<printWhenExpression><![CDATA[$P{IsDetail}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[T O T A L]]></text>
+			</staticText>
+			<textField evaluationTime="Master">
+				<reportElement x="526" y="0" width="46" height="16" uuid="ba7f2564-932e-4972-944e-c4f1d6938401">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$P{IsDetail}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="240" height="16" uuid="7f29ff4d-705d-4368-9158-c6f634e923eb">
+					<printWhenExpression><![CDATA[!$P{IsDetail}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[T O T A L]]></text>
+			</staticText>
+			<textField evaluationTime="Master">
+				<reportElement x="240" y="0" width="46" height="16" uuid="cef69936-7059-4add-9666-c1332e50f96f">
+					<printWhenExpression><![CDATA[!$P{IsDetail}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
