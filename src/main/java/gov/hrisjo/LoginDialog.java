@@ -131,7 +131,8 @@ public class LoginDialog extends javax.swing.JFrame implements java.awt.event.Ac
             return;
 
         boolean verified;
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
+//        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement(
                     "SELECT " +
                         "userdescrp, permeso, date_part('year', now()), NOW()::DATE " +
@@ -167,7 +168,7 @@ public class LoginDialog extends javax.swing.JFrame implements java.awt.event.Ac
                 //SplashForm.main();
                 MainJFrame.main();
             }
-        } catch (java.sql.SQLException | NullPointerException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(this.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

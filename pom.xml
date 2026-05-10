@@ -85,6 +85,12 @@
             <classifier>all</classifier>
         </dependency>
         <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>7.0.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.toedter</groupId>
             <artifactId>jcalendar</artifactId>
             <version>1.4</version>
@@ -101,21 +107,21 @@
         </dependency>        
     
         <!-- ========== kini na mga dependecies gigamit jasperreports ========== -->
-<dependency>
-  <groupId>net.sf.jasperreports</groupId>
-  <artifactId>jasperreports</artifactId>
-  <version>6.21.3</version>
-  <exclusions>
-    <exclusion>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-    </exclusion>
-    <exclusion>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-    </exclusion>
-  </exclusions>
-</dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.21.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <dependency>
             <groupId>net.sourceforge.barbecue</groupId>
@@ -132,11 +138,11 @@
             <artifactId>jasperreports-xalan</artifactId>
             <version>6.21.5</version>
         </dependency>
-<dependency>
-  <groupId>net.sf.jasperreports</groupId>
-  <artifactId>jasperreports-fonts</artifactId>
-  <version>6.21.3</version>
-</dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>6.21.3</version>
+        </dependency>
         
         <!-- Apache POI for Excel export -->
         <dependency>
@@ -149,22 +155,22 @@
             <artifactId>poi-ooxml</artifactId>
             <version>5.2.5</version>
         </dependency>
-<!-- POI deep dependencies (ensure on classpath explicitly) -->
-<dependency>
-  <groupId>org.apache.xmlbeans</groupId>
-  <artifactId>xmlbeans</artifactId>
-  <version>5.1.1</version>
-</dependency>
-<dependency>
-  <groupId>org.apache.commons</groupId>
-  <artifactId>commons-compress</artifactId>
-  <version>1.26.1</version>
-</dependency>
-<dependency>
-  <groupId>commons-io</groupId>
-  <artifactId>commons-io</artifactId>
-  <version>2.16.1</version>
-</dependency>
+        <!-- POI deep dependencies (ensure on classpath explicitly) -->
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>5.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.26.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.16.1</version>
+        </dependency>
 
         <!-- Commons Collections (used internally by JasperReports/POI) -->
         <dependency>
@@ -173,28 +179,28 @@
             <version>4.4</version>
         </dependency>
 
-<!-- Logging (align to avoid NoSuchFieldError and Java 9+ warnings) -->
-<dependency>
-  <groupId>org.apache.logging.log4j</groupId>
-  <artifactId>log4j-api</artifactId>
-  <version>2.17.2</version>
-</dependency>
-<dependency>
-  <groupId>org.apache.logging.log4j</groupId>
-  <artifactId>log4j-core</artifactId>
-  <version>2.17.2</version>
-</dependency>
+        <!-- Logging (align to avoid NoSuchFieldError and Java 9+ warnings) -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.17.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.17.2</version>
+        </dependency>
 
-<dependency>
-  <groupId>jakarta.xml.bind</groupId>
-  <artifactId>jakarta.xml.bind-api</artifactId>
-  <version>2.3.3</version>
-</dependency>
-<dependency>
-  <groupId>org.glassfish.jaxb</groupId>
-  <artifactId>jaxb-runtime</artifactId>
-  <version>2.3.3</version>
-</dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>2.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.3</version>
+        </dependency>
 
         <!-- =================================================================== -->
         <dependency>

@@ -362,7 +362,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private void WindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_WindowOpened
         if (evt.getID() == 0) return;
         setExtendedState(getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
+//        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement stmt = jdbc.createStatement();
                 java.sql.ResultSet rst = stmt.executeQuery(
                         "SELECT " +
@@ -426,7 +427,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
