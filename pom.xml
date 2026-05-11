@@ -81,7 +81,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.7</version>
+            <version>42.7.9</version>
             <classifier>all</classifier>
         </dependency>
         <dependency>
@@ -214,4 +214,5 @@
         <exec.mainClass>gov.hrisjo.HrisJOMain</exec.mainClass>
         <maven.compiler.release>21</maven.compiler.release>
     </properties>
+    <description>In remote 27.110.189.51:54321</description>
 </project>

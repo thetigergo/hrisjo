@@ -62,7 +62,8 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
             try (java.sql.Statement _smt = jdbc.createStatement();
                     java.sql.ResultSet rst = _smt.executeQuery("SELECT lastname, firstname, payrate, offcloc FROM psnl.contractual_x WHERE offcloc IS NOT NULL;")) {
                 while (rst.next()) {
@@ -117,10 +118,8 @@ public class NewJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewJFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new NewJFrame().setVisible(true);
         });
     }
 

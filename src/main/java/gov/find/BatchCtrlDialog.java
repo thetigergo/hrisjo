@@ -132,7 +132,8 @@ public class BatchCtrlDialog extends javax.swing.JDialog {
     private void spnYearStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnYearStateChanged
         // TODO add your handling code here:
         if (evt.toString().isBlank() | evt.toString().isEmpty()) return;
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT DISTINCT consolid FROM pay.consolwages WHERE (consolid LIKE ?) ORDER BY consolid;")) {
             String anios = spnYear.getValue().toString();
             psmt.setString(1, anios + "%");
@@ -142,7 +143,7 @@ public class BatchCtrlDialog extends javax.swing.JDialog {
             }
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(BatchCtrlDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -159,7 +160,8 @@ public class BatchCtrlDialog extends javax.swing.JDialog {
             btnRetrieve.setEnabled(lstList.getSelectedIndex() >= 0);
         });
 
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT DATE_PART('YEAR', NOW());");
                 java.sql.ResultSet rst = psmt.executeQuery()) {
             rst.next();
@@ -167,7 +169,7 @@ public class BatchCtrlDialog extends javax.swing.JDialog {
             
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(BatchCtrlDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {

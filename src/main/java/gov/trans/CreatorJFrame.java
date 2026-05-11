@@ -698,7 +698,8 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
         
         if (tblJobs.isEditing()) tblJobs.getCellEditor().stopCellEditing();
         
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement _smt = jdbc.createStatement()) {
             
             String JobRef = spnYear.getValue().toString();
@@ -857,7 +858,7 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
                 java.util.logging.Logger.getLogger(CreatorJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(CreatorJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -903,7 +904,8 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
 //            System.out.println(tme.getType() == javax.swing.event.TableModelEvent.DELETE ? "DELETE" : "3");
 //        });
 
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement stmt = jdbc.createStatement(); java.sql.Statement _smt = jdbc.createStatement();
                 java.sql.ResultSet rst = stmt.executeQuery("SELECT offcid, office FROM psnl.offices ORDER BY office");
                 java.sql.ResultSet tbl = _smt.executeQuery("SELECT pangalan, designate, budgetary, ranggo, mayorya, recommend, rankomend FROM psnl.preparedby ORDER BY priority DESC LIMIT 1")) {
@@ -938,7 +940,7 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
                 cboBoxTo.addItem(month + " - " + cal.get(java.util.Calendar.DATE));
             }            
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(CreatorJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -950,7 +952,8 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (evt == null) return;
         
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT 0 FROM psnl.createdjob WHERE (psnl_no = ?) AND allow_edit");
                 java.sql.PreparedStatement pzmt = jdbc.prepareStatement(
                         "SELECT " +
@@ -1023,7 +1026,6 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
 
                     if (firsttime) {
                         firsttime = false;
-                        UponRetrieve = true;
 
                         java.util.Calendar cal = java.util.Calendar.getInstance();
                         cal.setTime(rst.getDate(6));
@@ -1057,7 +1059,6 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
                     }
                 }
             }
-            UponRetrieve = false;
 
 
 
@@ -1092,7 +1093,8 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
         if (test) return;
 
         
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement("DELETE FROM cbo.jobarrange WHERE (empkey = ?) AND (psnl_ref = ?)")) {
             
             rowIdx = tblJobs.convertRowIndexToModel(rowIdx);
@@ -1107,7 +1109,7 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
             
             
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(CreatorJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1225,8 +1227,9 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
                     "(projects.offcloc = '" + Office + "') " +
                 "ORDER BY " +
                     "projects.projtitle";
-        System.out.println(query);
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //System.out.println(query);
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement stmt = jdbc.createStatement();
                 java.sql.ResultSet rst = stmt.executeQuery(query)) {
             
@@ -1238,7 +1241,7 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
 //            boolean test = cboProject.getItemCount() > 0;
 //            if (test) LoadNames();
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(CreatorJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -1258,68 +1261,68 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
 //        if (trial) LoadNames();
     }//GEN-LAST:event_cboProjectActionPerformed
 
-    private void LoadNames() {
-        Integer index = cboOffice.getSelectedIndex(), 
-                years = Integer.valueOf(spnYear.getValue().toString(), 10),
-                endix = cboProject.getSelectedIndex();
-        String sqlCmd = 
-            "WITH picking AS ( " +
-                "SELECT jobnum FROM cbo.jobarrange " +
-                "WHERE (offcloc = ?) AND (project = ?) AND (jobyear = ?) " +
-                "ORDER BY todate DESC LIMIT 1" +
-            "), jobrange AS (" +
-                "SELECT empkey, remarks " +
-                "FROM cbo.jobarrange INNER JOIN picking ON jobarrange.jobnum = picking.jobnum " +
-                "WHERE (offcloc = ?) AND (project = ?) AND (jobyear = ?)" +
-            ")SELECT " +
-                "jobrange.empkey, " +
-                "jobworker.empid, " +
-                "humane(jobworker.lastname, jobworker.firstname, jobworker.midname, jobworker.suffix), " +
-                "jobworker.jobdesc, " +
-                "jobworker.payrate, " +
-                "jobrange.remarks " +
-            "FROM " +
-                "psnl.jobworker INNER JOIN jobrange ON jobworker.uniqkey = jobrange.empkey " +
-            "WHERE " +
-                "(jobworker.offcloc IS NULL) " +  
-            "ORDER BY " +
-                "jobworker.lastname, jobworker.firstname, jobworker.midname;",
-            office = arOpesina.get(index),
-            project = arProyekto.get(endix);
-
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
-                java.sql. PreparedStatement psmt = jdbc.prepareStatement(sqlCmd)) {
-            
-            javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tblJobs.getModel();
-            modelo.setRowCount(0);
-
-            psmt.setString(1, office);
-            psmt.setString(2, project);
-            psmt.setInt   (3, years);
-            psmt.setString(4, office);
-            psmt.setString(5, project);
-            psmt.setInt   (6, years);
-            try (java.sql.ResultSet rst = psmt.executeQuery()) {
-                while (rst.next()) {
-                    Object[] rowData = {
-                        rst.getString(2),   //"I.D. #",
-                        rst.getString(3),   //"Employee",
-                        rst.getString(4),   //"Designation",
-                        rst.getDouble(5),   //"Rate/Day",
-                        rst.getString(1),   //"jo_key",
-                        rst.getString(6),   //"Renewal Sate",
-                        null,    
-                        null
-                    };
-                    modelo.addRow(rowData);
-                }
-            }
-
-        } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
-            java.util.logging.Logger.getLogger(CreatorJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }
+//    private void LoadNames() {
+//        Integer index = cboOffice.getSelectedIndex(), 
+//                years = Integer.valueOf(spnYear.getValue().toString(), 10),
+//                endix = cboProject.getSelectedIndex();
+//        String sqlCmd = 
+//            "WITH picking AS ( " +
+//                "SELECT jobnum FROM cbo.jobarrange " +
+//                "WHERE (offcloc = ?) AND (project = ?) AND (jobyear = ?) " +
+//                "ORDER BY todate DESC LIMIT 1" +
+//            "), jobrange AS (" +
+//                "SELECT empkey, remarks " +
+//                "FROM cbo.jobarrange INNER JOIN picking ON jobarrange.jobnum = picking.jobnum " +
+//                "WHERE (offcloc = ?) AND (project = ?) AND (jobyear = ?)" +
+//            ")SELECT " +
+//                "jobrange.empkey, " +
+//                "jobworker.empid, " +
+//                "humane(jobworker.lastname, jobworker.firstname, jobworker.midname, jobworker.suffix), " +
+//                "jobworker.jobdesc, " +
+//                "jobworker.payrate, " +
+//                "jobrange.remarks " +
+//            "FROM " +
+//                "psnl.jobworker INNER JOIN jobrange ON jobworker.uniqkey = jobrange.empkey " +
+//            "WHERE " +
+//                "(jobworker.offcloc IS NULL) " +  
+//            "ORDER BY " +
+//                "jobworker.lastname, jobworker.firstname, jobworker.midname;",
+//            office = arOpesina.get(index),
+//            project = arProyekto.get(endix);
+//
+//        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+//                java.sql. PreparedStatement psmt = jdbc.prepareStatement(sqlCmd)) {
+//            
+//            javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tblJobs.getModel();
+//            modelo.setRowCount(0);
+//
+//            psmt.setString(1, office);
+//            psmt.setString(2, project);
+//            psmt.setInt   (3, years);
+//            psmt.setString(4, office);
+//            psmt.setString(5, project);
+//            psmt.setInt   (6, years);
+//            try (java.sql.ResultSet rst = psmt.executeQuery()) {
+//                while (rst.next()) {
+//                    Object[] rowData = {
+//                        rst.getString(2),   //"I.D. #",
+//                        rst.getString(3),   //"Employee",
+//                        rst.getString(4),   //"Designation",
+//                        rst.getDouble(5),   //"Rate/Day",
+//                        rst.getString(1),   //"jo_key",
+//                        rst.getString(6),   //"Renewal Sate",
+//                        null,    
+//                        null
+//                    };
+//                    modelo.addRow(rowData);
+//                }
+//            }
+//
+//        } catch (Exception ex) {
+//            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
+//            java.util.logging.Logger.getLogger(CreatorJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1358,7 +1361,6 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
     private final boolean NUMERIC = true;
     private final boolean CONDITION = true;
     
-    private boolean UponRetrieve = false;
 
     private class InteractiveTableModelListener implements javax.swing.event.TableModelListener {
 
@@ -1381,7 +1383,8 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
 
             java.util.Map<String, Object> params = new java.util.HashMap<>();
 
-            try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+            //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+            try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
                 Short anios = Short.valueOf(spnYear.getValue().toString(), 10);
                 
                 // REPORT PARAMETERS
@@ -1393,7 +1396,7 @@ public class CreatorJFrame extends javax.swing.JInternalFrame {
 
 
 
-            } catch (java.sql.SQLException | net.sf.jasperreports.engine.JRException ex) {
+            } catch (Exception ex) {
                 javax.swing.JOptionPane.showMessageDialog(CreatorJFrame.this, ex.getMessage(), "Printing/Viewing Report", javax.swing.JOptionPane.ERROR_MESSAGE);
                 java.util.logging.Logger.getLogger(CreatorJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             } finally {

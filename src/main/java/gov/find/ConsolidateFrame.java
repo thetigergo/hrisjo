@@ -622,8 +622,10 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
         });
         
         
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
-                org.postgresql.core.BaseConnection jdvc = new gov.hrisjo.PGdbLink("financial")) {
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
+                //org.postgresql.core.BaseConnection jdvc = new gov.hrisjo.PGdbLink("financial");
+                java.sql.Connection jdvc = gov.hrisjo.PgDBcon.dbLink("financial")) {
             
             try (java.sql.Statement _smt = jdbc.createStatement();
                     java.sql.ResultSet rst = _smt.executeQuery("SELECT DATE_PART('YEAR', NOW());")) {
@@ -638,7 +640,7 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
             }
             dtpDated.setDate(gov.hrisjo.MainJFrame.getPetsaRon());
             
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(ConsolidateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -666,8 +668,8 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
 
     private void JobOrder(String text) {
         String already, pangalan, periodas, opesina, proyekto, inputby;
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
-
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
             Double cantedad; //, amount = Double.valueOf(fmtTotal.getValue().toString());
             javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel)tblWages.getModel();
             inputby = "SELECT " +
@@ -779,8 +781,8 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
     }
     private void Contractual(String text) {
         String already, pangalan, periodas, opesina, proyekto, inputby;
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
-
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
             Double cantedad; //, amount = Double.valueOf(fmtTotal.getValue().toString());
             javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel)tblWages.getModel();
             inputby = "SELECT " +
@@ -930,7 +932,8 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
                         "WHERE " +
                             "(alobs_id = ?)";
                 
-                try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink("financial");
+                //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink("financial");
+                try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink("financial");
                         java.sql.PreparedStatement psmt = jdbc.prepareStatement(sqlCmd)) {
                     
                     sqlCmd = fmtAlobsNo.getText();
@@ -982,8 +985,8 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
         int idx = cboSelect.getSelectedIndex();
         String[] reports = {"jobconsol", "contsolida"};
         java.io.InputStream reportSource = getClass().getResourceAsStream("/jreport/" + reports[idx] + ".jasper");
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
-            
+        //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {    
             // REPORT PARAMETERS
             java.util.Map<String, Object> params = new java.util.HashMap<>();
             params.put("CtrlNo", BatchCtrl);
@@ -993,7 +996,7 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
 
 
 
-        } catch (java.sql.SQLException | net.sf.jasperreports.engine.JRException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(ConsolidateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -1046,8 +1049,10 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
                         "(alobs_id = ?)";       //14
                 //queries = "SELECT MIN(pangalan), proyekto, SUM(cantedad) FROM pay.consolwages WHERE (consolid = ?) GROUP BY proyekto ORDER BY MIN(pangalan);";
                 //queries = "SELECT pangalan, cantedad FROM pay.consolwages WHERE (consolid = ?) ORDER BY pangalan;";
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
-                java.sql.Connection jdvc = new gov.hrisjo.PGdbLink("financial")) {
+        //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
+                //java.sql.Connection jdvc = new gov.hrisjo.PGdbLink("financial");
+                java.sql.Connection jdvc = gov.hrisjo.PgDBcon.dbLink()) {
             
             Long Amount = 0L;
             try (java.sql.Statement _smt = jdbc.createStatement();
@@ -1248,7 +1253,8 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
                     "(consolwages.consolid = ?) " +
                 "ORDER BY " +
                     "consolwages.wagectrlno;";
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
+        //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement(sqlCmd)) {
             
 //            Double amount = 0D;
@@ -1323,8 +1329,10 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
         javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel)tblWages.getModel();
         String wageCtrl = modelo.getValueAt(selrow, 0).toString();
         
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
-                java.sql.Connection jdvc = new gov.hrisjo.PGdbLink("financial")) {
+        //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
+                //java.sql.Connection jdvc = new gov.hrisjo.PGdbLink("financial");
+                java.sql.Connection jdvc = gov.hrisjo.PgDBcon.dbLink("financial")) {
             
             try(java.sql.PreparedStatement psmt = jdbc.prepareStatement("UPDATE pay." + WAGES[idx] + " SET alobs = NULL WHERE (ctrlno = ?);")) {
                 psmt.setString(1, wageCtrl);
@@ -1366,7 +1374,8 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (evt.getActionCommand().isBlank() | evt.getActionCommand().isEmpty()) return;
         
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
+        //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement("UPDATE pay.consolwages SET name1st = ?, rank1st = ?, name2nd = ?, rank2nd = ?, name3rd = ?, rank3rd = ? WHERE (consolid = ?);")) {
 
             psmt.setString(1, txt1stName.getText());
@@ -1396,8 +1405,8 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
         if (evt == null) return;
         
         java.io.InputStream reportSource = getClass().getResourceAsStream("/jreport/alobs.jasper");
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink("financial")) {
-            
+        //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink("financial")) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink("financial")) {    
             String alobsid = fmtAlobsNo.getText();
 
             // REPORT PARAMETERS
@@ -1409,7 +1418,7 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
 
 
 
-        } catch (java.sql.SQLException | net.sf.jasperreports.engine.JRException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(ConsolidateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {

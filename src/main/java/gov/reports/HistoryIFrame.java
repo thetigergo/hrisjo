@@ -134,7 +134,8 @@ public class HistoryIFrame extends javax.swing.JInternalFrame {
             btnPreview.setEnabled(lstList.getSelectedIndex() >= 0);
         });
 
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT DATE_PART('YEAR', NOW());");
                 java.sql.ResultSet rst = psmt.executeQuery()) {
             rst.next();
@@ -142,7 +143,7 @@ public class HistoryIFrame extends javax.swing.JInternalFrame {
             
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(HistoryIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -159,8 +160,8 @@ public class HistoryIFrame extends javax.swing.JInternalFrame {
 //        org.apache.log4j.Logger logger = org.apache.log4j.Logger.getRootLogger();
 //        logger.setLevel((org.apache.log4j.Level)org.apache.log4j.Level.WARN);
 
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
-            
+        //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {    
             int index = lstList.getSelectedIndex();
             // REPORT PARAMETERS
             params.put("ControlNo", ListModelo.get(index));
@@ -171,7 +172,7 @@ public class HistoryIFrame extends javax.swing.JInternalFrame {
 
 
 
-        } catch (java.sql.SQLException | net.sf.jasperreports.engine.JRException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(HistoryIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -186,7 +187,8 @@ public class HistoryIFrame extends javax.swing.JInternalFrame {
 
     private void spnYearStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnYearStateChanged
         // TODO add your handling code here:
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT psnl_no FROM psnl.createdjob WHERE (LEFT(psnl_no, 4) = ?) ORDER BY sekwence;")) {
             
             psmt.setString(1, spnYear.getValue().toString());
@@ -196,7 +198,7 @@ public class HistoryIFrame extends javax.swing.JInternalFrame {
             }
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(HistoryIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {

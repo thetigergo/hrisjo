@@ -57,8 +57,8 @@ public class ATM_Non_JFrame extends javax.swing.JFrame {
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         // TODO add your handling code here:
         java.io.InputStream reportSource = getClass().getResourceAsStream("/jreport/joblisting_all.jasper");
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
-            
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
             java.util.Calendar calz = java.util.Calendar.getInstance();
             calz.set(2025, 11, 31);
 
@@ -72,7 +72,7 @@ public class ATM_Non_JFrame extends javax.swing.JFrame {
 
 
 
-        } catch (java.sql.SQLException | net.sf.jasperreports.engine.JRException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(ATM_Non_JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {

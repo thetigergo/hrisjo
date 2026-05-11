@@ -271,7 +271,8 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
         // TODO add your handling code here:
         new Thread(() -> {
-            try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+            //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+            try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
                 java.io.InputStream reportSource;
                 java.util.Map<String, Object> params = new java.util.HashMap<>(); // REPORT PARAMETERS
                 
@@ -346,8 +347,8 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
         if (much < 0) return;
         
         setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
-            
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
             Short bulan = (short)(cboBulan.getSelectedIndex() + 1),
                   anios = Short.valueOf(spnAnios.getValue().toString(), 10),
                   checkit;
@@ -395,7 +396,8 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_nameActionPerformed
     private void loadNames(String names) {
         setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement(
                         "SELECT " +
                             "uniqkey, " +
@@ -428,7 +430,8 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
     }
     private String findAdvances(String acctgref) {
         String voucher = "";
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink("treasurer")) {
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink("treasurer")) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink("treasurer")) {
             //StringBuilder acctref = new StringBuilder();
             try (java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT voucher FROM adv.payrolls WHERE (acctgref = ?);")) {
                 psmt.setString(1, acctgref);
@@ -463,7 +466,8 @@ public class JosCosWageJFrame extends javax.swing.JInternalFrame {
     }
     private String findAdvice(String debitkey) {
         String voucher = "";
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
             try (java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT DISTINCT acctg_ref FROM pay.timebook WHERE (advicekey = ?) " +
                                                                          "UNION ALL " +
                                                                          "SELECT DISTINCT acctg_ref FROM pay.laborpaid WHERE (advicekey = ?);")) {

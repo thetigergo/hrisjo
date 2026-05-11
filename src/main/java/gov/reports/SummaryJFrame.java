@@ -195,7 +195,8 @@ public class SummaryJFrame extends javax.swing.JInternalFrame {
 //        org.apache.log4j.Logger logger = org.apache.log4j.Logger.getRootLogger();
 //        logger.setLevel(org.apache.log4j.Level.WARN);
 
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+        //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
 //            Object retVal = javax.swing.JOptionPane.showInputDialog(this, "Please enter your desired YEAR.", getTitle(), javax.swing.JOptionPane.PLAIN_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/voucher.png")), null, cald.get(java.util.Calendar.YEAR));
 //            if (retVal == null) return;
 //            if (retVal.equals("")) return;
@@ -233,7 +234,7 @@ public class SummaryJFrame extends javax.swing.JInternalFrame {
 
 
 
-        } catch (java.sql.SQLException | net.sf.jasperreports.engine.JRException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(SummaryJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {

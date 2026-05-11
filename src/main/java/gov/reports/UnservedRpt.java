@@ -158,8 +158,8 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
 
         java.util.Map<String, Object> params = new java.util.HashMap<>();
 
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
-            
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {    
             
             java.util.Calendar calfr = java.util.Calendar.getInstance(),
                                calto = java.util.Calendar.getInstance();
@@ -194,7 +194,8 @@ public class UnservedRpt extends javax.swing.JInternalFrame {
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
         lblStatus.setText("");
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement pzmt = jdbc.prepareStatement("SELECT DATE_PART('YEAR', MAX(datefr)) FROM pay.timebook;")) {
             java.util.Calendar cald = java.util.Calendar.getInstance();
             

@@ -577,7 +577,8 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
 
     private void SavePopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SavePopupActionPerformed
         // TODO add your handling code here:
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
             fmtRate.commitEdit();
 
             jdbc.setAutoCommit(false);
@@ -677,7 +678,8 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
         
         javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel)tblHuman.getModel();
         String uniqkey = modelo.getValueAt(selRow, 3).toString();
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement stmt = jdbc.createStatement();
                 java.sql.ResultSet rst = stmt.executeQuery(
                     "SELECT " +
@@ -736,7 +738,7 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
 
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(JobOrderIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -758,7 +760,8 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
                 options[options.length - 1]) == javax.swing.JOptionPane.NO_OPTION;
         if (test) return;
 
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement stmt = jdbc.createStatement()) {
             int success = stmt.executeUpdate("DELETE FROM psnl.jobworker WHERE (uniqkey = '" + txtUniqueID.getText() + "')");
             if (success != 0) {
@@ -768,7 +771,7 @@ public class JobOrderIFrame extends javax.swing.JInternalFrame {
                 javax.swing.JOptionPane.showMessageDialog(this, "Record not erased.", title, javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(JobOrderIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -897,7 +900,8 @@ $BODY$SELECT
     private void findActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findActionPerformed
         // TODO add your handling code here:
         String value = txtSearch.getText();
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement stmt = jdbc.createStatement();
                 java.sql.ResultSet rst = stmt.executeQuery(
                     "SELECT " +
@@ -921,7 +925,7 @@ $BODY$SELECT
             }
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(JobOrderIFrame.this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(JobOrderIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {

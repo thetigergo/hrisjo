@@ -311,7 +311,8 @@ public class NamesDialog extends javax.swing.JDialog {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         // TODO add your handling code here:
         if (evt.getActionCommand().equals("Retrieve")) {
-            try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+            //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+            try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                     java.sql.PreparedStatement psmt = jdbc.prepareStatement(
                         "SELECT " +
                             "uniqkey, empid, suffix, lastname, firstname, midname, birthday, address, bank_acct " +
@@ -337,14 +338,15 @@ public class NamesDialog extends javax.swing.JDialog {
                 setVisible(false);
                 
                     
-            } catch (java.sql.SQLException exs) {
+            } catch (Exception exs) {
                 javax.swing.JOptionPane.showMessageDialog(this, exs.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
                 java.util.logging.Logger.getLogger(NamesDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, exs);
             } finally {
 
             }
         } else {
-            try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+            //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+            try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                     java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT crypt(NOW()::VARCHAR, gen_salt('bf'));");
                     java.sql.PreparedStatement pzmt = jdbc.prepareStatement("SELECT DATE_PART('YEAR', NOW()) || 'J' || trim(to_char(NEXTVAL('psnl.jobseq'), '0000'))"); // FROM psnl.jobworker WHERE DATE_PART('YEAR', entered) = DATE_PART('YEAR', NOW())
                     java.sql.PreparedStatement pcmt = jdbc.prepareStatement("SELECT DATE_PART('YEAR', NOW()) || 'C' || trim(to_char(NEXTVAL('psnl.contra'), '0000'))"); // FROM psnl.jobworker WHERE DATE_PART('YEAR', entered) = DATE_PART('YEAR', NOW())
@@ -389,7 +391,7 @@ public class NamesDialog extends javax.swing.JDialog {
 
                 setVisible(false);
 
-            } catch (NullPointerException | java.sql.SQLException exs) {
+            } catch (Exception exs) {
                 javax.swing.JOptionPane.showMessageDialog(this, exs.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
                 java.util.logging.Logger.getLogger(NamesDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, exs);
             } finally {
@@ -428,7 +430,8 @@ public class NamesDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtMidNameKeyTyped
             
     private void Loading(String text) {
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement(
                         "SELECT " +
                             "uniqkey, humane(lastname, firstname, suffix, midname), address " +
@@ -450,7 +453,7 @@ public class NamesDialog extends javax.swing.JDialog {
             okButton.setText(ListModelo.isEmpty() ? "Post/Save" : "Retrieve");
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(NamesDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {

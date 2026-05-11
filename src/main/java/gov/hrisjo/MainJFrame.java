@@ -448,7 +448,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        if (evt.getID() == 0) return;
+        if (evt == null) return;
+        
+//        PgDBcon.shutdown();
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
@@ -578,7 +580,8 @@ public class MainJFrame extends javax.swing.JFrame {
 //        org.apache.log4j.Logger logger = org.apache.log4j.Logger.getRootLogger();
 //        logger.setLevel(org.apache.log4j.Level.WARN);
         
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+        //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
             Object retVal = javax.swing.JOptionPane.showInputDialog(this, "Please enter your desired YEAR.", getTitle(), javax.swing.JOptionPane.PLAIN_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/gov/imajen/voucher.png")), null, cald.get(java.util.Calendar.YEAR));
             if (retVal == null) return;
             if (retVal.equals("")) return;
@@ -593,7 +596,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
 
 
-        } catch (java.awt.HeadlessException | NumberFormatException | java.sql.SQLException | net.sf.jasperreports.engine.JRException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {

@@ -18,13 +18,13 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="DatedFr" class="java.util.Date" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2026-01-01", new java.text.ParsePosition(0));]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2026-04-01", new java.text.ParsePosition(0));]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DatedTo" class="java.util.Date" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2026-02-28", new java.text.ParsePosition(0));]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2026-04-30", new java.text.ParsePosition(0));]]></defaultValueExpression>
 	</parameter>
 	<parameter name="IsDetail" class="java.lang.Boolean" isForPrompting="false">
-		<defaultValueExpression><![CDATA[true]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[false]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT DISTINCT

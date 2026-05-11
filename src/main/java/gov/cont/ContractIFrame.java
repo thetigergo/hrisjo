@@ -518,7 +518,8 @@ public class ContractIFrame extends javax.swing.JInternalFrame {
 
     private void SavePopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SavePopupActionPerformed
         // TODO add your handling code here:
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {
             fmtRate.commitEdit(); 
             if (!fmtAccount.getText().equals(" -     -   - ")) fmtAccount.commitEdit();
 
@@ -610,7 +611,8 @@ public class ContractIFrame extends javax.swing.JInternalFrame {
         
         selRow = tblHuman.convertRowIndexToModel(selRow);
         
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement stmt = jdbc.createStatement();
                 java.sql.ResultSet rst = stmt.executeQuery(
                     "SELECT " +
@@ -664,7 +666,7 @@ public class ContractIFrame extends javax.swing.JInternalFrame {
 
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(ContractIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -686,7 +688,8 @@ public class ContractIFrame extends javax.swing.JInternalFrame {
                 options[options.length - 1]) == javax.swing.JOptionPane.NO_OPTION;
         if (test) return;
 
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement stmt = jdbc.createStatement()) {
             int success = stmt.executeUpdate("DELETE FROM psnl.jobworker WHERE (uniqkey = '" + txtUniqueID.getText() + "')");
             if (success != 0) {
@@ -696,7 +699,7 @@ public class ContractIFrame extends javax.swing.JInternalFrame {
                 javax.swing.JOptionPane.showMessageDialog(this, "Record not erased.", title, javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(ContractIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -772,7 +775,8 @@ public class ContractIFrame extends javax.swing.JInternalFrame {
                 }
             }*/
         });
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement stmt = jdbc.createStatement();
                 java.sql.ResultSet rst = stmt.executeQuery("SELECT offcid, office FROM psnl.offices ORDER BY office")) {
             while (rst.next()) {
@@ -781,7 +785,7 @@ public class ContractIFrame extends javax.swing.JInternalFrame {
             }
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(ContractIFrame.this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(ContractIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -824,7 +828,8 @@ public class ContractIFrame extends javax.swing.JInternalFrame {
     private void btnFindfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindfindActionPerformed
         // TODO add your handling code here:
         String value = txtSearch.getText();
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
             java.sql.Statement stmt = jdbc.createStatement();
             java.sql.ResultSet rst = stmt.executeQuery(
                 "SELECT " +
@@ -847,7 +852,7 @@ public class ContractIFrame extends javax.swing.JInternalFrame {
                 model.addRow(arData);
             }
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(ContractIFrame.this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(ContractIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {

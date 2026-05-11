@@ -261,7 +261,8 @@ public class NamesDialog extends javax.swing.JDialog {
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         // TODO add your handling code here:
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement(
                     "SELECT " +
                         "uniqkey, empid, humane(lastname, firstname, suffix, midname), jobdesc, payrate, " +
@@ -285,7 +286,7 @@ public class NamesDialog extends javax.swing.JDialog {
             setVisible(false);
 
 
-        } catch (java.sql.SQLException exs) {
+        } catch (Exception exs) {
             javax.swing.JOptionPane.showMessageDialog(this, exs.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(NamesDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, exs);
         } finally {
@@ -319,7 +320,8 @@ public class NamesDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtMidNameKeyTyped
 
     private void Loading(String text) {
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement(
                         "SELECT " +
                             "uniqkey, humane(lastname, firstname, suffix, midname), address " +
@@ -341,7 +343,7 @@ public class NamesDialog extends javax.swing.JDialog {
 //            okButton.setText(ListModelo.isEmpty() ? "Post/Save" : "Retrieve");
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(NamesDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {

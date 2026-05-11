@@ -1,34 +1,49 @@
 package gov.hrisjo;
 
-
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import com.zaxxer.hikari.*;
 
 import java.sql.Connection;
 
 public class PgDBcon {
-    private final static HikariDataSource dataSource;
-    
+    // Map to keep track of a separate pool for each database
+    private static final java.util.Map<String, HikariDataSource> pools = new java.util.HashMap<>();
     private static final String SERVER = System.getProperty("SERVER");
 
+    // 1. PLACE THE STATIC BLOCK HERE
     static {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:postgresql://" + SERVER + ":54321/joborders");
-        config.setUsername(Gate.PGSQL.salt());
-        config.setPassword(Gate.PGPWD.salt());
-        config.setMaximumPoolSize(1); // adjust as needed
-//        config.addDataSourceProperty("ssl", "true"); // optional SSL
-
-        dataSource = new HikariDataSource(config);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Cleaning up database pools...");
+            shutdown();
+        }));
     }
-
-    public static Connection dbLink() throws Exception {
-        return dataSource.getConnection();
-    }
-
-    public static void shutdown() {
-        if (dataSource != null) {
-            if (!dataSource.isClosed()) dataSource.close(); // equivalent to pool.end()
+    
+    public static synchronized Connection dbLink(String dbName) throws Exception {
+        if (!pools.containsKey(dbName) || pools.get(dbName).isClosed()) {
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl("jdbc:postgresql://" + SERVER + ":5432/" + dbName);
+            config.setUsername(Gate.PGSQL.salt());
+            config.setPassword(Gate.PGPWD.salt());
+            
+            // Allow at least 2 connections if you plan to open them at once
+            config.setMaximumPoolSize(5);
+            
+            pools.put(dbName, new HikariDataSource(config));
         }
+        return pools.get(dbName).getConnection();
     }
+
+    // Default connection
+    public static Connection dbLink() throws Exception {
+        return dbLink("joborders");
+    }
+    
+    public static synchronized void shutdown() {
+        // Iterate through all open pools in the map
+        for (String dbName : pools.keySet()) {
+            HikariDataSource ds = pools.get(dbName);
+            if (ds != null && !ds.isClosed()) ds.close(); // Closes all connections for this specific database pool
+        }
+        pools.clear(); // Empty the map for safety
+    }
+
 }

@@ -300,7 +300,7 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
             return;
         }
         
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement psmt = jdbc.createStatement()) {
 
             StringBuilder permits = new StringBuilder();
@@ -337,7 +337,7 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
             ReloadUser();
 
 
-        } catch (java.sql.SQLException | java.awt.HeadlessException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(CreateUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -392,7 +392,7 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboUserIDActionPerformed
 
     private void ReloadUser() {
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement(
                     "SELECT " +
                         "userid, " +
@@ -419,7 +419,7 @@ public class CreateUserJFrame extends javax.swing.JInternalFrame {
             }
 
             
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(CreateUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

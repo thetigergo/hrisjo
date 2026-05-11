@@ -208,7 +208,7 @@ public class EraseUserJFrame extends javax.swing.JInternalFrame {
 
     private void EraseUser(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EraseUser
         // TODO add your handling code here:
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement("DELETE FROM public.userlogon WHERE (userid = ?)")) {
             
             Object[] options = {"Yes", "No"};
@@ -229,7 +229,7 @@ public class EraseUserJFrame extends javax.swing.JInternalFrame {
             psmt.executeUpdate();
             
             
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(EraseUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -242,7 +242,7 @@ public class EraseUserJFrame extends javax.swing.JInternalFrame {
 
     private void InternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_InternalFrameOpened
         // TODO add your handling code here:
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT userid, userdescrp FROM public.userlogon WHERE (pazzword IS NOT NULL) ORDER BY userdescrp");
                 java.sql.ResultSet rst = psmt.executeQuery()) {
             LogList.clear(); cboUserID.removeAllItems();
@@ -252,7 +252,7 @@ public class EraseUserJFrame extends javax.swing.JInternalFrame {
             }
             
             
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(EraseUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

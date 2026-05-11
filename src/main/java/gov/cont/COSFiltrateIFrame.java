@@ -1,4 +1,4 @@
-package gov.cont;
+ package gov.cont;
 
 /**
  *
@@ -147,7 +147,7 @@ public class COSFiltrateIFrame extends javax.swing.JInternalFrame {
         RowSorter = new javax.swing.table.TableRowSorter<>(tblCos.getModel());
         tblCos.setRowSorter(RowSorter);
         
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
             java.sql.Statement stmt = jdbc.createStatement();
             java.sql.ResultSet rst = stmt.executeQuery(
                 "SELECT " +
@@ -209,7 +209,7 @@ public class COSFiltrateIFrame extends javax.swing.JInternalFrame {
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         // TODO add your handling code here:
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
             java.sql.PreparedStatement stmt = jdbc.prepareStatement("UPDATE psnl.jobworker SET phaseout = ? WHERE uniqkey = ?;")) {
             javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel)tblCos.getModel();
             

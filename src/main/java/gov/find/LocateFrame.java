@@ -171,12 +171,13 @@ public class LocateFrame extends javax.swing.JInternalFrame {
 
             btnView.setEnabled(tblLocate.getSelectedRowCount() > 0);
         });
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.Statement _smt = jdbc.createStatement();
                 java.sql.ResultSet rst = _smt.executeQuery("SELECT DATE_PART('YEAR', NOW());")) {
             if (rst.next()) spnYear.setValue(rst.getInt(1));
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(LocateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -187,7 +188,8 @@ public class LocateFrame extends javax.swing.JInternalFrame {
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         // TODO add your handling code here:
         String text = txtLocate.getText();
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement(
                         "SELECT " +
                             "humane(jobworker.lastname, jobworker.firstname, jobworker.suffix, jobworker.midname), " +
@@ -227,7 +229,7 @@ public class LocateFrame extends javax.swing.JInternalFrame {
 
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(LocateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -244,8 +246,8 @@ public class LocateFrame extends javax.swing.JInternalFrame {
 //        org.apache.log4j.Logger logger = org.apache.log4j.Logger.getRootLogger();
 //        logger.setLevel((org.apache.log4j.Level)org.apache.log4j.Level.WARN);
 
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
-            
+        //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {    
             javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel)tblLocate.getModel();
             int index = tblLocate.getSelectedRow();
             index = tblLocate.convertRowIndexToModel(index);
@@ -261,7 +263,7 @@ public class LocateFrame extends javax.swing.JInternalFrame {
 
 
 
-        } catch (java.sql.SQLException | net.sf.jasperreports.engine.JRException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(LocateFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {

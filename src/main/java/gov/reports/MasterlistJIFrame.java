@@ -120,7 +120,8 @@ public class MasterlistJIFrame extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
-        try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        //try (org.postgresql.core.BaseConnection jdbc = new gov.hrisjo.PGdbLink();
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink();
                 java.sql.PreparedStatement psmt = jdbc.prepareStatement("SELECT DATE_PART('YEAR', NOW());");
                 java.sql.ResultSet rst = psmt.executeQuery()) {
             rst.next();
@@ -128,7 +129,7 @@ public class MasterlistJIFrame extends javax.swing.JInternalFrame {
             
 
 
-        } catch (java.sql.SQLException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), getTitle(), javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(MasterlistJIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
@@ -142,8 +143,8 @@ public class MasterlistJIFrame extends javax.swing.JInternalFrame {
 
         java.util.Map<String, Object> params = new java.util.HashMap<>();
 
-        try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
-            
+        //try (java.sql.Connection jdbc = new gov.hrisjo.PGdbLink()) {
+        try (java.sql.Connection jdbc = gov.hrisjo.PgDBcon.dbLink()) {    
             int index = cboChoice.getSelectedIndex();
             String value;
             value = switch (index) {
@@ -160,7 +161,7 @@ public class MasterlistJIFrame extends javax.swing.JInternalFrame {
 
 
 
-        } catch (java.sql.SQLException | net.sf.jasperreports.engine.JRException ex) {
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), title, javax.swing.JOptionPane.ERROR_MESSAGE);
             java.util.logging.Logger.getLogger(MasterlistJIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
