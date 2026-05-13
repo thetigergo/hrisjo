@@ -46,4 +46,5 @@ public class PgDBcon {
         pools.clear(); // Empty the map for safety
     }
 
+    private PgDBcon(){}
 }
