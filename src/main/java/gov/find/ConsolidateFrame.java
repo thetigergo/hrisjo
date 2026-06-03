@@ -1222,11 +1222,20 @@ public class ConsolidateFrame extends javax.swing.JInternalFrame {
         BatchCtrlDialog dialogo = new BatchCtrlDialog();
         dialogo.setLocationRelativeTo(this);
         dialogo.setVisible(true);
-        
+/**
+INSERT INTO pay.suholan(ctrlno, payfr, payto, userid, typed, kabook)
+        SELECT laborpaid.ctrlno, laborpaid.payfr, laborpaid.payto, laborpaid.userid, 'C/A', COUNT(laborpaid.*) -- consolwages.consolid
+        FROM pay.laborpaid INNER JOIN pay.consolwages ON laborpaid.ctrlno = consolwages.wagectrlno
+                 INNER JOIN psnl.jobworker ON laborpaid.worker = jobworker.uniqkey
+        WHERE (consolwages.consolid = '2026~000068') AND (jobworker.bank_acct IS NOT NULL)
+        GROUP BY consolwages.consolid, laborpaid.ctrlno, laborpaid.payfr, laborpaid.payto, laborpaid.userid
+        ORDER BY laborpaid.ctrlno
+ON CONFLICT DO NOTHING;
+ */
         String sqlCmd;
         BatchCtrl = dialogo.getBatchCtrl(); dialogo.dispose();
         if (BatchCtrl == null || (BatchCtrl.isBlank() | BatchCtrl.isEmpty())) return;
-        
+
         sqlCmd = "SELECT " +
                     "consolwages.pangalan, " +
                     "consolwages.periodas, " +
